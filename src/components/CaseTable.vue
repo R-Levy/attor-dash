@@ -1,15 +1,8 @@
 <template>
-  <v-card tile>
-    <v-card-title class='secondary--text font-weight-bold'>
-      Case Overview
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+  <v-card tile class='mt-12'>
+    <v-card-title class='secondary--text font-weight-bold d-flex flex-column align-start pl-12'>
+      <div>Case Overview</div>
+      <filter-area />
     </v-card-title>
     <DataTable />
   </v-card>
@@ -17,11 +10,13 @@
 
 <script>
 import DataTable from '@/components/DataTable'
+import FilterArea from '@/components/FilterArea'
 
 export default {
     name: 'CaseTable',
     components: {
         DataTable,
+        FilterArea,
     }
 
 }

@@ -36,7 +36,7 @@ export default {
           { title: 'Files', icon: 'mdi-folder-open' },
           { title: 'Files', icon: '$tasks' },
           { title: 'Users', icon: 'mdi-account-group' },
-          { title: 'Mail', icon: 'mdi-email-variant' },
+          { title: 'Mail', icon: '$email' },
           { title: 'Files', icon: 'mdi-email-open-multiple-outline' },
           { title: 'Files', icon: 'mdi-finance' },
           { title: 'Users', icon: 'mdi-cogs' },

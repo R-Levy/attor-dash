@@ -2,7 +2,7 @@
   <v-card tile class="my-4 pa-4">
     <div  class="d-flex justify-between full-width">
       <v-col cols="2">
-      <v-card-title class="secondary--text font-weight-bold">Quick Links</v-card-title>
+      <v-card-title class="secondary--text font-weight-bold pa-0">Quick Links</v-card-title>
       </v-col>
       <div
       class="d-flex flex-row justify-between full-width mx-2"
@@ -24,8 +24,8 @@ export default {
     data () {
       return {
         items: [
-          { title: 'CALENDAR', icon: 'mdi-home' },
-          { title: 'MESSAGES', icon: 'mdi-folder-open' },
+          { title: 'CALENDAR', icon: '$calendar' },
+          { title: 'MESSAGES', icon: '$email' },
           { title: 'NEW CASES', icon: 'mdi-folder-open' },
           { title: 'TASKS', icon: '$tasks' },
           { title: 'INVOICES', icon: 'mdi-email-variant' },

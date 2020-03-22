@@ -1,5 +1,5 @@
 <template>
-<div class='quick-link'>
+<div class='quick-link d-flex flex-column align-center'>
   <v-btn depressed small color="accent" fab class="white--text">
     <v-icon>{{icon}}</v-icon>
     </v-btn>
