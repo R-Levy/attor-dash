@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import '@/styles.sass'
 import Tasks from '@/components/icons/Tasks.vue'
 import Settings from '@/components/icons/Settings.vue'
 import Calendar from '@/components/icons/Calendar.vue'
