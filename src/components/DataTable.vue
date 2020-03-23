@@ -30,12 +30,6 @@ export default {
             align: 'center',
           },
           {
-            text: 'Submitted',
-            value: 'submitted',
-            class: 'header-text white--text font-weight-regular',
-            align: 'center'
-          },
-          {
             text: 'Service Requested',
             value: 'service',
             class: 'header-text white--text font-weight-regular',
@@ -100,7 +94,6 @@ export default {
         cases: [
           {
             name: 'Jane Doe',
-            submitted: '03.22.20',
             service: 'Full Eviction',
             address: '1124 Somewhere St. \n City, NJ 123456',
             parties: 'Black vs. Smith LT-505345',
