@@ -30,6 +30,9 @@ export default {
 </script>
 
 <style>
+.v-application{
+  font-family: Hind, sans-serif;
+}
 .full-width {
   width: 100%;
 }
