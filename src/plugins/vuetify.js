@@ -4,6 +4,7 @@ import Tasks from '@/components/icons/Tasks.vue'
 import Settings from '@/components/icons/Settings.vue'
 import Calendar from '@/components/icons/Calendar.vue'
 import Email from '@/components/icons/Email.vue'
+import Invoices from '@/components/icons/Invoices.vue'
 
 Vue.use(Vuetify);
 
@@ -31,6 +32,9 @@ export default new Vuetify({
               },
               email: { 
                 component: Email, 
+              },
+              invoices: { 
+                component: Invoices, 
               },
             },
           },

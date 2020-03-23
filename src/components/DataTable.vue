@@ -4,7 +4,15 @@
       :headers="headers"
       :items="cases"
       :search="search"
-    ></v-data-table>
+    >
+    <template v-slot:item.case-view>
+      <v-btn x-small rounded depressed color="primary">view</v-btn>
+    </template>
+
+    <template v-slot:item.message>
+      <v-btn x-small icon color="accent"><v-icon>$email</v-icon></v-btn>
+    </template>
+    </v-data-table>
 </div>
 </template>
 
@@ -19,7 +27,7 @@ export default {
             text: 'Client',
             value: 'name',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
           },
           {
             text: 'Submitted',
@@ -37,19 +45,21 @@ export default {
             text: 'Address',
             value: 'address',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
+            sortable: false,
           },
           {
             text: 'Parties',
             value: 'parties',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
+            sortable: false,
           },
           {
             text: 'County',
             value: 'county',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
           },
           {
             text: 'Hearing',
@@ -61,30 +71,44 @@ export default {
             text: 'Status',
             value: 'status',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
+            width: '15%',
+            sortable: false,
           },
           {
             text: 'Action',
             value: 'action',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
+            sortable: false,
           },
           {
             text: 'Message',
             value: 'message',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
+            sortable: false,
           },
           {
             text: 'Case',
             value: 'case-view',
             class: 'header-text white--text font-weight-regular',
-            align: 'center'
+            align: 'center',
+            sortable: false,
           },
         ],
         cases: [
           {
             name: 'Jane Doe',
+            submitted: '03.22.20',
+            service: 'Full Eviction',
+            address: '1124 Somewhere St. \n City, NJ 123456',
+            parties: 'Black vs. Smith LT-505345',
+            county: 'Newark',
+            hearing: '3.02.19',
+            status: 'Filed Complaint and Summons \n 3.03.20',
+            action: 'Pre-Court Assessment \n Due: 3.10.20'
+
           },
         ],
       }
@@ -103,5 +127,6 @@ letter-spacing: 1.26px;
 color: #FFFFFF;
 text-transform: uppercase;
 opacity: 1;
+white-space: nowrap;
 }
 </style>

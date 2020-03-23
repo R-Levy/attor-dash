@@ -28,7 +28,7 @@ export default {
           { title: 'MESSAGES', icon: '$email' },
           { title: 'NEW CASES', icon: 'mdi-folder-open' },
           { title: 'TASKS', icon: '$tasks' },
-          { title: 'INVOICES', icon: 'mdi-email-variant' },
+          { title: 'INVOICES', icon: '$invoices' },
         ],
       }
     }
