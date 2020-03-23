@@ -30,8 +30,6 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap');
-
 .full-width {
   width: 100%;
 }
