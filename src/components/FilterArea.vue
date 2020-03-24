@@ -59,8 +59,6 @@ export default {
     },
     data () {
       return {
-        //filterDialogOpen: false,
-        //columnDialogOpen: false,
       }
     },
     methods:{

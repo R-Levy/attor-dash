@@ -4,7 +4,8 @@
 
     <v-content>
      <Toolbar />
-     <Main />
+     <!-- <Main /> -->
+     <router-view  />
     </v-content>
   </v-app>
 </template>
@@ -12,7 +13,7 @@
 <script>
 import Navigation from './components/Navigation';
 import Toolbar from './components/Toolbar';
-import Main from './components/pages/Main'
+//import Main from './components/pages/Main'
 
 export default {
   name: 'App',
@@ -20,7 +21,7 @@ export default {
   components: {
     Navigation,
     Toolbar,
-    Main,
+    //Main,
   },
 
   data: () => ({

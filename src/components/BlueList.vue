@@ -8,6 +8,7 @@
                 on-icon="mdi-checkbox-blank-circle"
                 off-icon="mdi-checkbox-blank-circle-outline"
                 hide-details
+                
                 ></v-checkbox>
       </div>
   </v-container>

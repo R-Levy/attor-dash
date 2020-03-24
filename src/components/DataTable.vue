@@ -1,7 +1,7 @@
 <template>
 <div>
     <v-data-table
-      :headers="headers"
+      :headers="computedHeaders"
       :items="cases"
       :search="search"
     >
@@ -106,6 +106,14 @@ export default {
         ],
       }
     },
+    computed: {
+    userHeaders(){
+      return  this.$store.getters.userHeaders
+    },
+   computedHeaders () {
+      return this.headers.filter(header => this.userHeaders.includes(header.value))  
+   }
+}
 }
 </script>
 

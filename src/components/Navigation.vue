@@ -2,7 +2,7 @@
   <v-navigation-drawer
         app
       v-model="drawer"
-      :mini-variant.sync="mini"
+      :mini-variant="mini"
       permanent
       color='#006E90'
       class="elevation-6"
@@ -11,6 +11,7 @@
         <v-list-item
           v-for="item in items"
           :key="item.title"
+          :to="{path: item.path}"
           link
         >
           <v-list-item-icon>
@@ -32,8 +33,8 @@ export default {
       return {
         drawer: true,
         items: [
-          { title: 'Home', icon: 'mdi-home' },
-          { title: 'Files', icon: 'mdi-folder-open' },
+          { title: 'Home', icon: 'mdi-home', path: '/' },
+          { title: 'Files', icon: 'mdi-folder-open', path: 'case-view' },
           { title: 'Files', icon: '$tasks' },
           { title: 'Users', icon: 'mdi-account-group' },
           { title: 'Mail', icon: '$email' },
