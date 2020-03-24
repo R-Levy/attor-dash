@@ -52,6 +52,8 @@
 <script>
 export default {
     name: 'filter-dialog',
+    methods:{
+    },
 
 }
 </script>

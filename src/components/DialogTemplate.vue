@@ -1,8 +1,8 @@
 <template>
 <!-- you will need to put a dialog: false in data of parent container and a trigger -->
   <v-card>
-        <v-card-title class="headline secondary--text font-weight-bold">{{title}}</v-card-title>
-
+        <v-card-title class="my-4 headline secondary--text font-weight-bold">{{title}}</v-card-title>
+        <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle>
         <v-card-text>
             <slot name='content'></slot>
         </v-card-text>
@@ -13,12 +13,12 @@
             color="accent"
             text
             x-small
-            @click="dialog = false"
+            @click="changeDialog('')"
           >
             cancel
           </v-btn>
 
-          <v-btn rounded color="accent" x-small dark class="px-8" depressed @click="dialog = false">{{submitText}}</v-btn>
+          <v-btn rounded color="accent" x-small dark class="px-8" depressed @click="changeDialog('')">{{submitText}}</v-btn>
         </v-card-actions>
       </v-card>
 </template>
@@ -29,6 +29,13 @@ export default {
     props: {
         submitText: String,
         title: String,
+        subtitle: String,
+    },
+    methods: {
+      changeDialog(dialogName){
+        window.console.log(dialogName)
+        this.$store.commit('setDialog', dialogName)
+      }
     }
 
 }
