@@ -3,9 +3,9 @@
         <v-container>
             <v-row>
                 <v-col v-for="card in cards" :key="card.title">
-                    <v-card class="pa-6 rounded-card">
-                        <span class="display-2 font-weight-medium px-3">{{card.number}}</span>
-                        <span class="overline font-weight-medium px-3">{{card.title}}</span>
+                    <v-card class="pa-6 rounded-card accent--text">
+                        <span :class="{'secondary--text': card.title !== 'overdue'}" class="display-1 font-weight-medium px-3">{{card.number}}</span>
+                        <span :class="{'info--text': card.title !== 'overdue'}" class="custom-overline font-weight-medium px-3">{{card.title}}</span>
                     </v-card>
                 </v-col>
             </v-row>

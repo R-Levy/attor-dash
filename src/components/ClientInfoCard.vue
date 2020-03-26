@@ -22,16 +22,16 @@
     <div id="client-info" class="py-6">
     <div>
         <p class="overline info--text font-weight-bold mb-1"> phone </p>
-        <p class="date-text">{{client.phone}}</p>
+        <p class="spaced-text">{{client.phone}}</p>
     </div>
     <div>
         <p class="overline info--text font-weight-bold mb-1"> email </p>
-        <p class="date-text">{{client.email}}</p>
+        <p class="spaced-text">{{client.email}}</p>
     </div>
     <div>
         <p class="overline info--text font-weight-bold mb-1"> address </p>
-        <p class="date-text mb-0">{{client.address.street}},</p>
-        <p class="date-text">{{client.address.city}}, {{client.address.state}} {{client.address.zip}}</p>
+        <p class="spaced-text mb-0">{{client.address.street}},</p>
+        <p class="spaced-text">{{client.address.city}}, {{client.address.state}} {{client.address.zip}}</p>
     </div>
     </div>
 

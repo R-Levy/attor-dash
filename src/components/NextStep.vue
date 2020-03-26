@@ -11,16 +11,16 @@
 
           <div>
             <span class="overline font-weight-bold mb-0 mx-2"> DUE: </span>
-            <span class="date-text font-weight-light">{{nextStepDue}}</span>
+            <span class="spaced-text font-weight-light">{{nextStepDue}}</span>
           </div>
           <div>
             <span class="overline font-weight-bold mb-0 mx-2"> STATUS: </span>
-            <span class="font-italic font-weight-light">{{nextStepStatus}}</span>
+            <span class="font-weight-light">{{nextStepStatus}}</span>
           </div>
 
           <div class="d-flex flex-column justify-center mx-6 my-4">
-          <v-btn depressed rounded color="accent" class="mb-2" small>complete task</v-btn>
-          <v-btn outlined rounded color="white" small>update status</v-btn>
+          <v-btn depressed rounded color="accent" class="mb-2">complete task</v-btn>
+          <v-btn outlined rounded color="white">update status</v-btn>
           </div>
       </div>
   </v-card>
@@ -45,9 +45,4 @@ span.v-btn__content {
     letter-spacing: 0.7px;
 }
 
-
-
-.date-text {
-    letter-spacing: 2px;
-}
 </style>

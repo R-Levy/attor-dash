@@ -11,7 +11,7 @@
     </template>
 
     <template v-slot:item.status={item}>
-      <v-chip color="primary" :outlined="item.status==='in progress'" small>{{item.status}}</v-chip>
+      <v-chip color="primary" :outlined="item.status==='in progress'">{{item.status}}</v-chip>
     </template>
 
     <template v-slot:item.priority={item}>

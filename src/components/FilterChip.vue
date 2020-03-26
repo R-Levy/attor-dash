@@ -26,7 +26,7 @@ export default {
 <style>
 .filter-chip{
     border-bottom: 2px solid #C3D1D2;
-    font-size: .65em;
+    font-size: .75em;
 
 }
 

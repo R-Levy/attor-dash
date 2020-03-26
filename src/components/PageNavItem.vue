@@ -3,7 +3,7 @@
   <v-btn depressed small color="white" icon :to="{path: `/case-view/${path}`}">
     <v-icon>{{icon}}</v-icon>
     </v-btn>
-    <p class="info--text overline text-center ma-2"> {{title}} </p>
+    <p class="info--text overline font-weight-medium text-center ma-2"> {{title}} </p>
 </div>
 </template>
 

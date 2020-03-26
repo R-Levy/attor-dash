@@ -7,55 +7,55 @@
             <v-col>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> filed </p>
-                    <p class="date-text">{{courtInfo.filed}}</p>
+                    <p class="spaced-text">{{courtInfo.filed}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> hearing </p>
-                    <p class="date-text">{{courtInfo.hearing}}</p>
+                    <p class="spaced-text">{{courtInfo.hearing}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> docket no. </p>
-                    <p class="date-text">{{courtInfo.docketNo}}</p>
+                    <p class="spaced-text">{{courtInfo.docketNo}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> parties </p>
-                    <p class="date-text mb-0">{{courtInfo.defendent}} vs. {{courtInfo.plaintiff}}</p>
+                    <p class="spaced-text mb-0">{{courtInfo.defendent}} vs. {{courtInfo.plaintiff}}</p>
                 </div>
             </v-col>
 
             <v-col>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> ground </p>
-                    <p class="date-text">{{courtInfo.ground}}</p>
+                    <p class="spaced-text">{{courtInfo.ground}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> suit amount </p>
-                    <p class="date-text">{{courtInfo.suitAmount}}</p>
+                    <p class="spaced-text">{{courtInfo.suitAmount}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> lease type </p>
-                    <p class="date-text">{{courtInfo.leaseType}}</p>
+                    <p class="spaced-text">{{courtInfo.leaseType}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> property address </p>
-                    <p class="date-text mb-0">{{courtInfo.propertyAddress.street}},</p>
-                    <p class="date-text">{{courtInfo.propertyAddress.city}}, {{courtInfo.propertyAddress.state}} {{courtInfo.propertyAddress.zip}}</p>
+                    <p class="spaced-text mb-0">{{courtInfo.propertyAddress.street}},</p>
+                    <p class="spaced-text">{{courtInfo.propertyAddress.city}}, {{courtInfo.propertyAddress.state}} {{courtInfo.propertyAddress.zip}}</p>
                 </div>
             </v-col>
 
             <v-col>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> judge </p>
-                    <p class="date-text">{{courtInfo.judge}}</p>
+                    <p class="spaced-text">{{courtInfo.judge}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1"> county </p>
-                    <p class="date-text">{{courtInfo.county}}</p>
+                    <p class="spaced-text">{{courtInfo.county}}</p>
                 </div>
                 <div>
                     <p class="overline info--text font-weight-bold mb-1">  court address </p>
-                    <p class="date-text mb-0">{{courtInfo.courtAddress.street}},</p>
-                    <p class="date-text">{{courtInfo.courtAddress.city}}, {{courtInfo.courtAddress.state}} {{courtInfo.courtAddress.zip}}</p>
+                    <p class="spaced-text mb-0">{{courtInfo.courtAddress.street}},</p>
+                    <p class="spaced-text">{{courtInfo.courtAddress.city}}, {{courtInfo.courtAddress.state}} {{courtInfo.courtAddress.zip}}</p>
                 </div>
             </v-col>
         </v-row>

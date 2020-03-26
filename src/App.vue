@@ -37,7 +37,13 @@ export default {
 .full-width {
   width: 100%;
 }
-.small-font{
-  font-size: 10px;
+.custom-overline {
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+}
+
+.spaced-text {
+    letter-spacing: .29px;
+    font-weight: 500;
 }
 </style>

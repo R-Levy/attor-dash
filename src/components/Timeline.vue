@@ -11,7 +11,7 @@
             fill-dot
           >
               <span class="font-weight-bold"> {{item.step}} </span>
-              <span class="font-small">{{item.subtitle}}</span>
+              <span>{{item.subtitle}}</span>
               <v-divider class="mt-4 mr-4"></v-divider>
           </v-timeline-item>
 
