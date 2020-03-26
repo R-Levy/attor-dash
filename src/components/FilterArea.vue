@@ -3,7 +3,9 @@
     <!-- filter button and filters -->
     <div class="d-flex align-end">
       <v-btn rounded color="accent" small dark class="px-8" depressed @click.stop="changeDialog('filterDialog')">add filter</v-btn>
-      <filter-chip :filter1="'county'" :filter2="'essex'"/>
+      <div v-for="filter in filters" :key="filter.filter1">
+        <filter-chip :filter1="filter.filter1" :filter2="filter.filter2"/>
+      </div>
     </div>
     <!-- search area -->
     <div class="d-flex align-end">
@@ -59,6 +61,16 @@ export default {
     },
     data () {
       return {
+        filters: [
+          {
+            filter1:'county',
+            filter2: 'essex',
+            },
+            {
+            filter1:'client',
+            filter2: 'jane doe',
+            },
+        ]
       }
     },
     methods:{

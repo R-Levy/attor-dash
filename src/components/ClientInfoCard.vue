@@ -1,5 +1,5 @@
 <template>
-  <v-card class="rounded-card pa-4 pl-6 secondary--text">
+  <v-card class="rounded-card pa-4 pl-6 pb-0 secondary--text">
       <div v-if="client.avatar" class="py-4">
       <v-avatar style="border-radius: 50%;" size="55px">
       <img

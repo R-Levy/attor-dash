@@ -24,6 +24,7 @@ export default new Vuetify({
               secondary: '#003A60',
               accent: '#F86624',
               info: '#AFC2CE',
+              blueish: '#45677d',
             },
           },
         },

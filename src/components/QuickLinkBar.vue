@@ -1,5 +1,5 @@
 <template>
-  <v-card tile class="my-4 pa-4">
+  <v-card tile class="mt-4 mb-12 pa-4">
     <div  class="d-flex justify-between full-width">
       <v-col cols="2">
       <v-card-title class="secondary--text font-weight-bold pa-0">Quick Links</v-card-title>

@@ -12,6 +12,7 @@
             </v-col>
             </v-row>
             <PageNavBar />
+            <router-view></router-view>
         </v-col>
         <v-col cols="2">
             <next-step />

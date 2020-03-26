@@ -4,7 +4,7 @@
     <div
       v-for="item in items"
       :key="item.title">
-      <page-nav-item :title="item.title" :icon="item.icon" />
+      <page-nav-item :title="item.title" :icon="item.icon" :path="item.path" />
       </div>
     </div>
   </v-card>
@@ -20,14 +20,14 @@ export default {
     data () {
       return {
         items: [
-          { title: 'OVERVIEW', icon: '$searchFolder' },
-          { title: 'DOCUMENTS', icon: '$invoices' },
-          { title: 'CREATE FORM', icon: '$form' },
-          { title: 'REQUESTS', icon: '$download' },
-          { title: 'MESSAGE', icon: '$email' },
-          { title: 'NOTES', icon: '$documentFolder' },
-          { title: 'TASKS', icon: '$tasks' },
-          { title: 'INVOICES', icon: '$bank' },
+          { title: 'OVERVIEW', icon: '$searchFolder', path: '' },
+          { title: 'DOCUMENTS', icon: '$invoices', path: 'documents' },
+          { title: 'CREATE FORM', icon: '$form', path: '' },
+          { title: 'REQUESTS', icon: '$download', path: 'requests' },
+          { title: 'MESSAGE', icon: '$email', path: '' },
+          { title: 'NOTES', icon: '$documentFolder', path: '' },
+          { title: 'TASKS', icon: '$tasks', path: 'tasks' },
+          { title: 'INVOICES', icon: '$bank', path: '' },
         ],
       }
     }

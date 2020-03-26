@@ -37,4 +37,7 @@ export default {
 .full-width {
   width: 100%;
 }
+.small-font{
+  font-size: 10px;
+}
 </style>
