@@ -1,6 +1,6 @@
 <template>
-<div class='d-flex flex-column align-center'>
-  <v-btn fab depressed small class="quick-link" color="accent">
+<div class='quick-link d-flex flex-column align-center'>
+  <v-btn depressed small color="white" icon>
     <v-icon>{{icon}}</v-icon>
     </v-btn>
     <p class="info--text overline text-center ma-2"> {{title}} </p>
@@ -9,7 +9,7 @@
 
 <script>
 export default {
-    name: 'QuickLink',
+    name: 'page-nav-item',
     props: {
         title: String,
         icon: String,

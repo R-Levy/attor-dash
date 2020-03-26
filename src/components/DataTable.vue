@@ -6,7 +6,7 @@
       :search="search"
     >
     <template v-slot:item.case-view>
-      <v-btn x-small rounded depressed color="primary">view</v-btn>
+      <v-btn x-small rounded depressed color="primary" :to="{path: 'case-view'}">view</v-btn>
     </template>
 
     <template v-slot:item.message>
