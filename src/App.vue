@@ -7,6 +7,14 @@
      <!-- <Main /> -->
      <router-view  />
     </v-content>
+
+    <v-footer inset app absolute>
+      <div class="caption">
+        © 2020 Easy Evictions. All Rights Reserved. 
+        <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">Privacy Policy</router-link>  
+      <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">Terms</router-link>  
+      <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">Disclaimer</router-link>
+      </div></v-footer>
   </v-app>
 </template>
 
