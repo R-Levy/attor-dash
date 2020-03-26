@@ -12,13 +12,12 @@
           <v-btn
             color="accent"
             text
-            x-small
             @click="changeDialog('')"
           >
             cancel
           </v-btn>
 
-          <v-btn rounded color="accent" x-small dark class="px-8" depressed @click="changeDialog('')">{{submitText}}</v-btn>
+          <v-btn rounded color="accent" dark class="px-8" depressed @click="changeDialog('')">{{submitText}}</v-btn>
         </v-card-actions>
       </v-card>
 </template>

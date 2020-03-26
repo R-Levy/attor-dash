@@ -2,25 +2,29 @@
 <div>
     <v-data-table
       :headers="headers"
-      :items="documents"
+      :items="tasks"
       :search="search"
     >
-    <template v-slot:item.documentName={item}>
-      <div class="secondary--text font-weight-bold">{{item.name}}</div>
-      <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">view</router-link>
+    <template v-slot:item.tasks={item}>
+      <div class="secondary--text font-weight-bold">{{item.title}}</div>
+      <div class="caption">{{item.subtitle}}</div>
+      <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">view</router-link>  
+      <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">edit</router-link>  
+      <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">log time</router-link>
+      <router-link class="accent--text small-font mr-2" :to="{ name: 'main' }">update status</router-link>
     </template>
 
     <template v-slot:item.status={item}>
-      <v-chip color="primary" :outlined="item.status==='in progress'">{{item.status}}</v-chip>
+      <v-chip :color="statusColor(item.status)" :outlined="item.status==='in progress'" dark>{{item.status}}</v-chip>
     </template>
 
     <template v-slot:item.priority={item}>
         <span class="pr-4"><v-icon :color="priorityColor(item.priority)" small>mdi-circle</v-icon></span> {{item.priority}}
     </template>
 
-    <template v-slot:item.requested={item}>
-      <div class="secondary--text font-weight-bold">{{item.requested.date}}</div>
-      <div class="caption">{{item.requested.time}}</div>
+    <template v-slot:item.created={item}>
+      <div class="secondary--text font-weight-bold">{{item.created.date}}</div>
+      <div class="caption">{{item.created.time}}</div>
     </template>
 
     <template v-slot:item.due={item}>
@@ -39,8 +43,8 @@ export default {
         search: '',
         headers: [
           {
-            text: 'Document Requested',
-            value: 'documentName',
+            text: 'Tasks',
+            value: 'tasks',
             class: 'header-text white--text font-weight-regular',
             align: 'left',
             sortable: false,
@@ -60,8 +64,8 @@ export default {
             sortable: true,
           },
           {
-            text: 'Date Requested',
-            value: 'requested',
+            text: 'Created',
+            value: 'created',
             class: 'header-text white--text font-weight-regular',
             align: 'left',
             sortable: true,
@@ -74,63 +78,13 @@ export default {
           },
 
         ],
-        documents: [
-          {
-            name: 'Lease Agreement',
-            status: 'received',
-            priority: 'Medium',
-            requested: {
-                date: '01/11/2020',
-                time: '1:23 PM',
-            },
-            due: {
-                date: '01/13/2020',
-                time: '8:23 AM',
-            }
-          },
-          {
-            name: 'Photographs of Damage',
-            status: 'in progress',
-            priority: 'High',
-            requested: {
-                date: '01/11/2020',
-                time: '1:23 PM',
-            },
-            due: {
-                date: '01/13/2020',
-                time: '8:23 AM',
-            }
-          },
-          {
-            name: 'Ledger',
-            status: 'in progress',
-            priority: 'Low',
-            requested: {
-                date: '01/11/2020',
-                time: '1:23 PM',
-            },
-            due: {
-                date: '01/13/2020',
-                time: '8:23 AM',
-            }
-          },
-          {
-            name: 'Ledger',
-            status: 'in progress',
-            priority: 'Low',
-            requested: {
-                date: '01/11/2020',
-                time: '1:23 PM',
-            },
-            due: {
-                date: '01/13/2020',
-                time: '8:23 AM',
-            }
-          },
-        ],
       }
     },
     computed: {
+      tasks(){
+        return this.$store.getters.tasks
+      }
+      
     },
     methods: {
         priorityColor(type) {
@@ -144,10 +98,17 @@ export default {
                 default:
                     return 'secondary'
             }
+        },
+        statusColor(status){
+          switch (status){
+                case 'overdue':
+                    return 'red'
+                default:
+                    return 'primary'
         }
+        },
+      },
     }
-
-}
 </script>
 
 <style>

@@ -31,25 +31,24 @@ export default {
             cards: [
                 {
                     title: 'all',
-                    number: 10,
+                    number: this.$store.getters.allTasks,
                 },
                 {
                     title: 'completed',
-                    number: 4,
+                    number: this.$store.getters.completedTasks,
                 },
                 {
                     title: 'incomplete',
-                    number: 4,
+                    number: this.$store.getters.incompletedTasks,
                 },
                 {
                     title: 'overdue',
-                    number: 1,
+                    number: this.$store.getters.overdueTasks,
                 }
             ]
         }
+    },
     }
-
-}
 </script>
 
 <style>

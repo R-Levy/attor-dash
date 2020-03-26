@@ -83,7 +83,7 @@ export default {
             value: 'status',
             class: 'header-text white--text font-weight-regular',
             align: 'left',
-            width: '30%',
+            width: '20%',
             sortable: false,
           },
           {
