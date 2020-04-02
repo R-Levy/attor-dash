@@ -2,7 +2,7 @@
   <v-card :tile="!rounded" :class="{'rounded-card': rounded}" class='pb-4'>
     <v-card-title class='secondary--text font-weight-bold d-flex flex-column align-start pl-12'>
       <div>{{title}}</div>
-      <filter-area />
+      <filter-area :button="filterAreaButton" :add-type="addType" />
     </v-card-title>
     <slot name='data'></slot>
   </v-card>
@@ -22,6 +22,8 @@ export default {
                 type: Boolean,
                 default: false
                 },
+      filterAreaButton: String,
+      addType: String,
     }
 
 }

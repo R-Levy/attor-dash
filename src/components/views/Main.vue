@@ -2,7 +2,7 @@
 <div class='py-4 px-8'>
     <!-- <InfoBar :items="items"/> -->
     <QuickLinkBar />
-    <table-template title="Case Overview">
+    <table-template title="Case Overview" :filter-area-button="'column-filter'">
         <template #data><CaseTable /></template>
     </table-template>
 </div>

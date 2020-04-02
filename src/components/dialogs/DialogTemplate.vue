@@ -1,7 +1,7 @@
 <template>
 <!-- you will need to put a dialog: false in data of parent container and a trigger -->
   <v-card>
-        <v-card-title class="my-2 headline secondary--text font-weight-bold">{{title}}</v-card-title>
+        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">{{title}}</v-card-title>
         <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle>
         <v-card-text>
             <slot name='content'></slot>

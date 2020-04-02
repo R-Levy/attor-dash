@@ -1,6 +1,6 @@
 <template>
     <div class="mt-6">
-        <table-template :rounded="true" title="Requests for Documents">
+        <table-template :rounded="true" title="Requests for Documents" :filter-area-button="'add'">
         <template #data><request-table /></template>
         </table-template>
     </div>

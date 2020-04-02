@@ -1,6 +1,6 @@
 <template>
     <div class="mt-6">
-        <table-template :rounded="true">
+        <table-template :rounded="true" :filter-area-button="'add'">
         <template #data><document-table /></template>
         </table-template>
     </div>

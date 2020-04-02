@@ -15,7 +15,7 @@
     </template>
 
     <template v-slot:item.parties={item}>
-      <div>{{item.parties.parties}}</div>
+      <div>{{item.parties.defendant}} vs. {{item.parties.plaintiff}}</div>
       <div class="accent--text">{{item.parties.docketNo}}</div>
     </template>
 
@@ -23,13 +23,33 @@
       <div>{{item.status.status}}</div>
       <div class="lighter-blue">{{item.status.date}}</div>
     </template>
+
+    <template v-slot:item.action={item}>
+      <div><a href="#" @click="actionDecision(item.action.action)">{{item.action.action}}</a></div>
+      <div><a href="#" @click="actionDecision(item.action.action2)">{{item.action.action2}}</a></div>
+      <div class="lighter-blue">Due: {{item.action.date}}</div>
+
+      <v-dialog
+      v-model="dialogOpen" value="''"
+      max-width="500"
+    >
+      <component :is="dynamicDialog" @change:dialog="changeDialog" :clientName="item.name"></component>
+    </v-dialog>
+    </template>
     </v-data-table>
+
 </div>
 </template>
 
 <script>
+import AcceptDialog from '@/components/dialogs/AcceptDialog'
+import DeclineDialog from '@/components/dialogs/DeclineDialog'
 export default {
     name: 'case-table',
+    components: {
+      AcceptDialog,
+      DeclineDialog,
+    },
     data () {
       return {
         search: '',
@@ -111,35 +131,58 @@ export default {
             width: '5%'
           },
         ],
-        cases: [
-          {
-            name: 'Jane Doe',
-            service: 'Full Eviction',
-            address: '1124 Somewhere St. City, NJ 123456',
-            parties: {
-                      parties: 'Black vs. Smith',
-                      docketNo: 'LT-505345'
-                      },
-            county: 'Newark',
-            hearing: '3.02.19',
-            status: {
-                      status:'Filed Complaint and Summons',
-                      date: '3.03.20',
-                      },
-            action: 'Pre-Court Assessment Due: 3.10.20'
-
-          },
-        ],
+        dialogName: '',
+        dialogOpen: false,
       }
     },
+    mounted (){
+    this.$store.dispatch('loadCases')
+  },
     computed: {
     userHeaders(){
       return  this.$store.getters.userHeaders
     },
-   computedHeaders () {
+    cases(){
+      return  this.$store.getters.cases
+    },
+   computedHeaders(){
       return this.headers.filter(header => this.userHeaders.includes(header.value))  
+   },
+   dynamicDialog(){
+     switch(this.dialogName){
+       case 'accept-dialog':
+         return 'accept-dialog'
+      case 'decline-dialog':
+         return 'decline-dialog'
+        default:
+          return ''
+     }
    }
-}
+   
+  },
+  methods: {
+     actionDecision(action){
+       switch(action){
+         case 'Accept Case':
+           console.log(action)
+           this.dialogName = 'accept-dialog'
+           this.dialogOpen = true
+           break
+          case 'Decline Case':
+           console.log(action)
+           this.dialogName = 'decline-dialog'
+           this.dialogOpen = true
+           break
+          default:
+            console.log('default')
+       }
+     },
+     changeDialog(dialogName){
+        window.console.log(dialogName)
+        this.$store.commit('setDialog', dialogName)
+        this.dialogOpen = false
+      }
+   }
 }
 </script>
 

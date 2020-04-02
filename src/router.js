@@ -1,7 +1,10 @@
 import Vue from 'vue'
 import VueRouter from  'vue-router'
 import Main from '@/components/views/Main.vue'
+import Profile from '@/components/views/Profile.vue'
+import DocumentReview from '@/components/views/DocumentReview.vue'
 import CaseView from '@/components/views/CaseView.vue'
+import AttorneyTasks from '@/components/views/AttorneyTasks.vue'
 import Overview from '@/components/views/CaseViewSubViews/Overview.vue'
 import Documents from '@/components/views/CaseViewSubViews/Documents.vue'
 import Requests from '@/components/views/CaseViewSubViews/Requests.vue'
@@ -15,6 +18,21 @@ const routes = [
     path: "/",
     name: "main",
     component: Main
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: Profile
+  },
+  {
+    path: "/tasks",
+    name: "attorney-tasks",
+    component: AttorneyTasks
+  },
+  {
+    path: "/document-review",
+    name: "document-review",
+    component: DocumentReview
   },
   {
     path: '/case-view',

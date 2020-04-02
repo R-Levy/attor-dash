@@ -16,7 +16,8 @@
           single-line
           hide-details
         ></v-text-field>
-        <v-btn icon color="accent" @click.stop="changeDialog('columnDialog')"><v-icon>$settings</v-icon></v-btn>
+        <v-btn v-if="button === 'column-filter'" icon color="accent" @click.stop="changeDialog('columnDialog')"><v-icon>$settings</v-icon></v-btn>
+        <v-btn v-if="button === 'add'" color="accent" rounded small dark class="px-6 mx-2" depressed @click="changeDialog(`${addType}Dialog`)"><v-icon x-small class="mx-2">mdi-plus</v-icon> new</v-btn>
     </div>
 
     <!-- this is the dialog that will pop up if add filter button is pressed -->
@@ -24,9 +25,7 @@
       v-model="filterDialogOpen" value="''"
       max-width="1000"
     >
-      <dialog-template title="Filter" submitText="apply filter">
-            <template v-slot:content><filter-dialog /></template>
-      </dialog-template>
+      <filter-dialog @change:dialog="changeDialog"/>
     </v-dialog>
 
     <!-- this is the dialog that will pop up if columns button is pressed -->
@@ -48,9 +47,9 @@
 
 <script>
 import FilterChip from "@/components/FilterChip";
-import DialogTemplate from "@/components/DialogTemplate";
-import FilterDialog from "@/components/FilterDialog";
-import ColumnDialog from "@/components/ColumnDialog"
+import DialogTemplate from "@/components/dialogs/DialogTemplate";
+import FilterDialog from "@/components/dialogs/FilterDialog";
+import ColumnDialog from "@/components/dialogs/ColumnDialog"
 export default {
     name: 'filter-area',
     components: {
@@ -58,6 +57,13 @@ export default {
       FilterDialog,
       ColumnDialog,
       DialogTemplate,
+    },
+    props: {
+      button: {
+        type: String,
+        default: ''
+      },
+      addType: String,
     },
     data () {
       return {
