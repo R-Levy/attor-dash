@@ -11,6 +11,7 @@ import Overview from '@/components/views/CaseViewSubViews/Overview.vue'
 import Documents from '@/components/views/CaseViewSubViews/Documents.vue'
 import Requests from '@/components/views/CaseViewSubViews/Requests.vue'
 import Tasks from '@/components/views/CaseViewSubViews/Tasks.vue'
+import { store } from './store'
 
 
 Vue.use(VueRouter);
@@ -24,7 +25,10 @@ const routes = [
   {
     path: "/profile",
     name: "profile",
-    component: Profile
+    component: Profile,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: "/login",
@@ -68,7 +72,10 @@ const routes = [
         path: 'tasks',
         component: Tasks,
       }
-    ]
+    ],
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
@@ -77,4 +84,16 @@ const router = new VueRouter({
   routes
 })
 
+//check for unauthorized access
+router.beforeEach((to, from, next) => {
+  if(to.matched.some(record => record.meta.requiresAuth)){
+    if (store.getters.isLoggedIn) {
+      next()
+      return
+    }
+    next('/login')
+  } else {
+    next()
+  }
+})
 export default router
