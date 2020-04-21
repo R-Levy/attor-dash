@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from  'vue-router'
 import Main from '@/components/views/Main.vue'
 import Profile from '@/components/views/Profile.vue'
+import Login from '@/components/views/Login.vue'
+import Register from '@/components/views/Register.vue'
 import DocumentReview from '@/components/views/DocumentReview.vue'
 import CaseView from '@/components/views/CaseView.vue'
 import AttorneyTasks from '@/components/views/AttorneyTasks.vue'
@@ -23,6 +25,16 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register
   },
   {
     path: "/tasks",

@@ -1,5 +1,6 @@
 <template>
   <v-system-bar color='white' class="toolbar elevation-2">
+    <span v-if="isLoggedIn">
 
       <v-text-field
       class="styled-input"
@@ -21,16 +22,28 @@
       </v-btn>
 
       <v-btn icon>
-        <v-icon color='info' small >mdi-logout</v-icon>
+        <v-icon color='info' small @click="logout">mdi-logout</v-icon>
       </v-btn>
 
       <v-app-bar-nav-icon color='info' small ></v-app-bar-nav-icon>
+    </span>
     </v-system-bar>
 </template>
 
 <script>
 export default {
     name: 'Toolbar',
+    computed: {
+      isLoggedIn: function(){ return this.$store.getters.isLoggedIn}
+    },
+    methods: {
+      logout: function(){
+        this.$store.dispatch('logout')
+        .then(()=>{
+          this.$router.push('/login')
+        })
+      }
+    }
 }
 </script>
 

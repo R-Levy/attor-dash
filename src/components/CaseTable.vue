@@ -6,6 +6,10 @@
       :search="search"
       class="cell-height"
     >
+    <template v-slot:item.name={item}>
+      <div class="font-weight-medium">{{item.firstname}} {{item.lastname}}</div>
+    </template>
+
     <template v-slot:item.case-view>
       <v-btn x-small rounded depressed color="primary" :to="{path: 'case-view'}">view</v-btn>
     </template>
@@ -14,26 +18,39 @@
       <v-btn x-small icon color="accent"><v-icon>$email</v-icon></v-btn>
     </template>
 
+    <template v-slot:item.address={item}>
+      <div>{{item.address}}</div>
+      <div>{{item.city}}, {{item.state}} {{item.zipcode}}</div>
+    </template>
+
+    <template v-slot:item.service={item}>
+      <div>{{item.planDescription}}</div>
+    </template>
+
     <template v-slot:item.parties={item}>
-      <div>{{item.parties.defendant}} vs. {{item.parties.plaintiff}}</div>
-      <div class="accent--text">{{item.parties.docketNo}}</div>
+      <div>{{item.defendant}} vs. {{item.plaintiff}}</div>
+      <div class="accent--text">{{item.docketNo}}</div>
+    </template>
+
+    <template v-slot:item.hearing={item}>
+      <div>{{fixDate(item.hearingDate)}}</div>
     </template>
 
     <template v-slot:item.status={item}>
-      <div>{{item.status.status}}</div>
-      <div class="lighter-blue">{{item.status.date}}</div>
+      <div>{{item.status}}</div>
+      <div class="lighter-blue">{{fixDate(item.statusDate)}}</div>
     </template>
 
     <template v-slot:item.action={item}>
-      <div><a href="#" @click="actionDecision(item.action.action)">{{item.action.action}}</a></div>
-      <div><a href="#" @click="actionDecision(item.action.action2)">{{item.action.action2}}</a></div>
-      <div class="lighter-blue">Due: {{item.action.date}}</div>
+      <div><a href="#" @click="actionDecision(item.action)">{{item.action}}</a></div>
+      <!-- <div><a href="#" @click="actionDecision(item.action.action2)">{{item.action.action2}}</a></div>
+      <div class="lighter-blue">Due: {{item.action.date}}</div> -->
 
       <v-dialog
       v-model="dialogOpen" value="''"
       max-width="500"
     >
-      <component :is="dynamicDialog" @change:dialog="changeDialog" :clientName="item.name"></component>
+      <component :is="dynamicDialog" @change:dialog="changeDialog" :clientName="item.lastname"></component>
     </v-dialog>
     </template>
     </v-data-table>
@@ -181,7 +198,14 @@ export default {
         window.console.log(dialogName)
         this.$store.commit('setDialog', dialogName)
         this.dialogOpen = false
-      }
+      },
+      fixDate(date){
+          var d = new Date(Date.parse(date));
+          var day = d.getDay()
+          var month = d.getMonth()
+          var yr = d.getFullYear()
+          return `${month}.${day}.${yr}`
+      },
    }
 }
 </script>

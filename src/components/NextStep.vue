@@ -20,7 +20,7 @@
 
           <div class="d-flex flex-column justify-center mx-6 my-4">
           <v-btn depressed rounded color="accent" class="mb-2">complete task</v-btn>
-          <v-btn outlined rounded color="white">update status</v-btn>
+          <v-btn outlined rounded color="white">create manual step</v-btn>
           </div>
       </div>
   </v-card>

@@ -1,5 +1,7 @@
 <template>
+
   <v-app style="background-color: #F0F5F6;">
+    
      <Navigation />
 
     <v-content>
