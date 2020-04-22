@@ -28,7 +28,7 @@
                     <v-text-field
                     label="Name"
                     name="name"
-                    v-model="email"
+                    v-model="name"
                     prepend-icon="mdi-account"
                     type="text"
                   />
@@ -50,7 +50,7 @@
                   />
 
                   <v-text-field
-                    id="password"
+                    id="password_confirm"
                     label="Confirm Password"
                     name="password-confirm"
                     v-model="password_confirmation"
@@ -61,6 +61,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
+                <router-link class="no-text-dec small-font mr-2" :to="{ name: 'login' }">login</router-link>
                 <v-btn color="#006E90" dark @click="register">Create</v-btn>
               </v-card-actions>
             </v-card>
@@ -93,7 +94,7 @@
                 password: this.password,
             }
             this.$store.dispatch('register', data)
-            .then(()=> this.router.push('/'))
+            .then(()=> this.$router.push('/'))
             .catch(err => console.log(err))
         }
     }

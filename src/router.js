@@ -87,6 +87,7 @@ const router = new VueRouter({
 //check for unauthorized access
 router.beforeEach((to, from, next) => {
   if(to.matched.some(record => record.meta.requiresAuth)){
+    console.log('routerloggedin', store.getters.isLoggedIn)
     if (store.getters.isLoggedIn) {
       next()
       return

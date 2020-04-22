@@ -45,6 +45,7 @@
               </v-card-text>
               <v-card-actions>
                 <v-spacer />
+                <router-link class="no-text-dec small-font mr-2" :to="{ name: 'register' }">register</router-link>
                 <v-btn color="#006E90" dark @click="login">Login</v-btn>
               </v-card-actions>
             </v-card>
@@ -71,7 +72,7 @@
             let email = this.email
             let password = this.password
             this.$store.dispatch('login', {email, password})
-            .then(()=> this.router.push('/'))
+            .then(()=> this.$router.push('/'))
             .catch(err => console.log(err))
         }
     }

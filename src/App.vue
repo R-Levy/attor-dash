@@ -34,18 +34,18 @@ export default {
     //Main,
   },
 
-  created: function() {
-    this.$http.intercepters.response.use(undefined, function(err){
-      return new Promise(function(){
+  // created: function() {
+  //   this.$http.intercepters.response.use(undefined, function(err){
+  //     return new Promise(function(){
 
-        if (err.status === 401 && err.config && !err.config.__isRetryRequest){
-          this.$store.dispatch('logout')
-        }
+  //       if (err.status === 401 && err.config && !err.config.__isRetryRequest){
+  //         this.$store.dispatch('logout')
+  //       }
 
-        throw err
-      })
-    })
-  }
+  //       throw err
+  //     })
+  //   })
+  // }
 
 };
 </script>
@@ -65,5 +65,9 @@ export default {
 .spaced-text {
     letter-spacing: .29px;
     font-weight: 500;
+}
+
+.no-text-dec {
+    text-decoration: none;
 }
 </style>

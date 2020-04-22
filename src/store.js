@@ -8,13 +8,12 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
       status: '',
-      token: localStorage.getItem('token') || '',
+      token: localStorage.getItem('acc_token') || '',
       dialog: '',
       userHeaders: ['name', 'service', 'address', 'parties','county','hearing','status','action', 'message', 'case-view'],
       cases: [],
       tasks: [],
       attorney: {
-        attorneyId: 31,
       }
     },
 
@@ -44,16 +43,18 @@ export const store = new Vuex.Store({
             commit('auth_request')
             axios({url: 'http://localhost:3333/auth/login', data: user, method: 'POST'})
             .then(resp => {
+              console.log('resp', resp)
               const token = resp.data.token
               const user = resp.data.user
-              localStorage.setItem('token', token)
+              localStorage.setItem('acc_token', token)
               axios.defaults.headers.common['Authorization'] = token
-              commit('auth_success', token, user)
+              console.log('user', user)
+              commit('auth_success', {token, user})
               resolve(resp)
             })
             .catch(err => {
               commit('auth_error')
-              localStorage.removeItem('token')
+              localStorage.removeItem('acc_token')
               reject(err)
             })
           })
@@ -66,14 +67,14 @@ export const store = new Vuex.Store({
             .then(resp => {
               const token = resp.data.token
               const user = resp.data.user
-              localStorage.setItem('token', token)
+              localStorage.setItem('acc_token', token)
               axios.defaults.headers.common['Authorization'] = token
-              commit('auth_success', token, user)
+              commit('auth_success', {token, user})
               resolve(resp)
             })
             .catch(err => {
               commit('auth_error', err)
-              localStorage.removeItem('token')
+              localStorage.removeItem('acc_token')
               reject(err)
             })
           })
@@ -82,17 +83,18 @@ export const store = new Vuex.Store({
         logout({commit}){
           return new Promise((resolve) => {
             commit('logout')
-            localStorage.removeItem('token')
+            localStorage.removeItem('acc_token')
             delete axios.defaults.headers.common['Authorization']
             resolve()
           })
         },
 
         loadCases ({commit, getters}){
+          console.log(getters.attorney)
           axios
             .get('http://localhost:3333/getCases',{
               params: {
-                attorneyId: getters.attorney.attorneyId
+                attorneyId: getters.attorney.AttorneyId
               }
             })
             .then(r => r.data)
@@ -105,7 +107,7 @@ export const store = new Vuex.Store({
           axios
             .get('http://localhost:3333/getTasks',{
               params: {
-              attorneyID: getters.attorney.attorneyId
+              attorneyID: getters.attorney.AttorneyId
             }
           })
             .then(r => r.data)
@@ -121,10 +123,12 @@ export const store = new Vuex.Store({
         auth_request(state){
           state.status = 'loading'
         },
-        auth_success(state, token, user){
+        auth_success(state, {token, user}){
           state.status = 'success'
           state.token = token
           state.attorney = user
+          console.log('authuser', user)
+          console.log('attor', state.attorney)
         },
         auth_error(state){
           state.status = 'error'
