@@ -33,19 +33,28 @@ export default {
     Toolbar,
     //Main,
   },
+beforeCreate(){
 
-  // created: function() {
-  //   this.$http.intercepters.response.use(undefined, function(err){
-  //     return new Promise(function(){
+    this.$store.dispatch('loadUser')
 
-  //       if (err.status === 401 && err.config && !err.config.__isRetryRequest){
-  //         this.$store.dispatch('logout')
-  //       }
+},
 
-  //       throw err
-  //     })
-  //   })
-  // }
+ // created: function() {
+    // this.$http.intercepters.response.use(undefined, function(err){
+    //   return new Promise(function(){
+
+    //     if (err.status === 401 && err.config && !err.config.__isRetryRequest){
+    //       this.$store.dispatch('logout')
+    //     }
+
+    //     throw err
+    //   })
+    // })
+
+   // this.$store.dispatch('loadCases')
+
+    
+ // }
 
 };
 </script>

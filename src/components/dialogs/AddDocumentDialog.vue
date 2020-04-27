@@ -10,18 +10,16 @@
                 <vue-dropzone id="drop1" :options="dropOptions" ></vue-dropzone>
             </v-col>
             <v-col class="pt-0">
-                <div class="font-weight-medium secondary--text">Case Number</div>
-                <v-select
-                v-model="task.caseID"
+                <div class="font-weight-medium secondary--text">Document Name</div>
+                <v-text-field
+                v-model="document.name"
                 rounded
                 hide-details
                 solo
                 flat
                 dense
                 background-color="#F0F5F6"
-                :items="[123]"
-                >
-                <v-icon medium slot="append" color="accent">mdi-chevron-down</v-icon></v-select>
+                ></v-text-field>
             </v-col>
             </v-row>
 
@@ -30,7 +28,7 @@
                 <v-col class="pt-0">
                 <div class="font-weight-medium secondary--text">Subject</div>
                 <v-text-field
-                v-model="task.subject"
+                v-model="document.subject"
                 rounded
                 hide-details
                 solo
@@ -65,7 +63,7 @@
                 <v-col class="pt-0">
                 <div class="font-weight-medium secondary--text">Description</div>
                 <v-textarea
-                v-model="task.description"
+                v-model="document.description"
                 rounded
                 hide-details
                 solo
@@ -81,7 +79,7 @@
             <v-col class="pt-0">
                 <div class="font-weight-medium secondary--text">Status</div>
                 <v-select
-                v-model="task.status"
+                v-model="document.status"
                 rounded
                 hide-details
                 solo
@@ -95,7 +93,7 @@
             <v-col class="pt-0">
                 <div class="font-weight-medium secondary--text">Priority</div>
                 <v-select
-                v-model="task.priority"
+                v-model="document.priority"
                 rounded
                 hide-details
                 solo
@@ -108,53 +106,6 @@
             </v-col>
             </v-row>
 
-            <v-row align-content="center">
-            <v-col class="pt-0">
-                <div class="font-weight-medium secondary--text">Due Date</div>
-                <v-menu
-                    v-model="menu"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    transition="scale-transition"
-                    offset-y
-                    min-width="290px"
-                >
-                    <template v-slot:activator="{ on }">
-                    <v-text-field
-                        v-model="computedDateFormatted"
-                        prepend-inner-icon="mdi-calendar"
-                        readonly
-                        rounded
-                            hide-details
-                            solo
-                            flat
-                            dense
-                            background-color="#F0F5F6"
-                        v-on="on"
-                    ></v-text-field>
-                    </template>
-                    <v-date-picker v-model="task.due_at" @input="menu = false"></v-date-picker>
-                </v-menu>
-            </v-col>
-            <v-col class="pt-0">
-                <div class="font-weight-medium secondary--text">Set Reminder</div>
-                <v-select
-                rounded
-                hide-details
-                solo
-                flat
-                dense
-                background-color="#F0F5F6"
-                :items="['Yes', 'No']"
-                >
-                <v-icon medium slot="append" color="accent">mdi-chevron-down</v-icon></v-select>
-            </v-col>
-            </v-row>
-            </div>
-
-            <v-row v-if="reminder === 'Yes'">
-            <v-btn large color="accent" class="mx-6" text @click="addFilter"><v-icon left>mdi-plus-circle-outline</v-icon> add reminder</v-btn>
-            </v-row>
         </v-container>
 
         </v-card-text>
@@ -193,11 +144,11 @@ export default {
             dropOptions: {
                  url: "https://httpbin.org/post"
             },
-            task: {
+            document: {
                 attorneyID: this.$store.getters.attorney.AttorneyId,
                 clientID: this.clientID,
                 caseID: this.caseID,
-                subject: '',
+                name: '',
                 description: '',
                 status: '',
                 priority: '',

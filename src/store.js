@@ -43,12 +43,12 @@ export const store = new Vuex.Store({
             commit('auth_request')
             axios({url: 'http://localhost:3333/auth/login', data: user, method: 'POST'})
             .then(resp => {
-              console.log('resp', resp)
               const token = resp.data.token
               const user = resp.data.user
-              localStorage.setItem('acc_token', token)
+              console.log('auth_token', token)
+              localStorage.setItem('acc_token', JSON.stringify(token))
+              console.log(localStorage.getItem('acc_token'))
               axios.defaults.headers.common['Authorization'] = token
-              console.log('user', user)
               commit('auth_success', {token, user})
               resolve(resp)
             })
@@ -90,7 +90,6 @@ export const store = new Vuex.Store({
         },
 
         loadCases ({commit, getters}){
-          console.log(getters.attorney)
           axios
             .get('http://localhost:3333/getCases',{
               params: {
@@ -112,8 +111,28 @@ export const store = new Vuex.Store({
           })
             .then(r => r.data)
             .then(data =>{
-              console.log(data)
               commit('set_tasks', data)
+            })
+        },
+
+        loadUser({commit, getters}){
+          if(localStorage.getItem('acc_token') === null){
+            console.log('it is null')
+          }
+          else{
+            const authToken = JSON.parse(localStorage.getItem('acc_token'))
+            axios.defaults.headers.common['Authorization'] = `Bearer ${authToken.token}`
+          }
+            axios
+            .get('http://localhost:3333/auth/user')
+            .then(r => r.data)
+            .then(data =>{
+              commit('set_user', data)
+            })
+            .then(()=>{
+              if (getters.cases.length === 0){
+                this.dispatch('loadCases')
+              }
             })
         }
     },
@@ -127,12 +146,15 @@ export const store = new Vuex.Store({
           state.status = 'success'
           state.token = token
           state.attorney = user
-          console.log('authuser', user)
-          console.log('attor', state.attorney)
         },
         auth_error(state){
           state.status = 'error'
         },
+
+        set_user(state, user){
+          state.attorney = user
+        },
+
         logout(state){
           state.status = ''
           state.token = ''

@@ -42,9 +42,10 @@
     </template>
 
     <template v-slot:item.action={item}>
-      <div><a href="#" @click="actionDecision(item.action)">{{item.action}}</a></div>
-      <!-- <div><a href="#" @click="actionDecision(item.action.action2)">{{item.action.action2}}</a></div>
-      <div class="lighter-blue">Due: {{item.action.date}}</div> -->
+      <span v-for="action in item.actions" :key="action.actionId">
+      <div><a href="#" @click="actionDecision(action)">{{action.Name}}</a></div>
+      </span>
+      <!-- <div class="lighter-blue">Due: {{item.action.date}}</div> -->
 
       <v-dialog
       v-model="dialogOpen" value="''"
@@ -152,15 +153,13 @@ export default {
         dialogOpen: false,
       }
     },
-    mounted (){
-    this.$store.dispatch('loadCases')
-  },
     computed: {
     userHeaders(){
       return  this.$store.getters.userHeaders
     },
     cases(){
       return  this.$store.getters.cases
+      
     },
    computedHeaders(){
       return this.headers.filter(header => this.userHeaders.includes(header.value))  
@@ -179,7 +178,7 @@ export default {
   },
   methods: {
      actionDecision(action){
-       switch(action){
+       switch(action.Name){
          case 'Accept Case':
            console.log(action)
            this.dialogName = 'accept-dialog'
@@ -193,16 +192,20 @@ export default {
           default:
             console.log('default')
        }
+      
      },
      changeDialog(dialogName){
         window.console.log(dialogName)
         this.$store.commit('setDialog', dialogName)
         this.dialogOpen = false
       },
+      loadCases(){
+    this.$store.dispatch('loadCases')
+      },
       fixDate(date){
           var d = new Date(Date.parse(date));
-          var day = d.getDay()
-          var month = d.getMonth()
+          var day = d.getDate()
+          var month = d.getMonth()+1 //months are counted starting from 0
           var yr = d.getFullYear()
           return `${month}.${day}.${yr}`
       },
