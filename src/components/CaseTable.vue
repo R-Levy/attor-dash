@@ -43,30 +43,33 @@
 
     <template v-slot:item.action={item}>
       <span v-for="action in item.actions" :key="action.actionId">
-      <div><a href="#" @click="actionDecision(action)">{{action.Name}}</a></div>
-      </span>
+      <div><a href="#" @click="actionDecision(action, item)">{{action.Name}}</a></div>
+      
+    </span>
+
       <!-- <div class="lighter-blue">Due: {{item.action.date}}</div> -->
 
       <v-dialog
       v-model="dialogOpen" value="''"
       max-width="500"
     >
-      <component :is="dynamicDialog" @change:dialog="changeDialog" :clientName="item.lastname"></component>
+      <component :is="dynamicDialog" @change:dialog="changeDialog" :dialogCase="dialogCase" :dialogAction="dialogAction"></component>
     </v-dialog>
     </template>
     </v-data-table>
-
 </div>
 </template>
 
 <script>
-import AcceptDialog from '@/components/dialogs/AcceptDialog'
-import DeclineDialog from '@/components/dialogs/DeclineDialog'
+import AcceptCaseDialog from '@/components/dialogs/AcceptCaseDialog'
+import DeclineCaseDialog from '@/components/dialogs/DeclineCaseDialog'
+import FileSCDialog from '@/components/dialogs/FileSCDialog'
 export default {
     name: 'case-table',
     components: {
-      AcceptDialog,
-      DeclineDialog,
+      AcceptCaseDialog,
+      DeclineCaseDialog,
+      FileSCDialog,
     },
     data () {
       return {
@@ -151,6 +154,8 @@ export default {
         ],
         dialogName: '',
         dialogOpen: false,
+        dialogCase: {},
+        dialogAction: {},
       }
     },
     computed: {
@@ -165,33 +170,32 @@ export default {
       return this.headers.filter(header => this.userHeaders.includes(header.value))  
    },
    dynamicDialog(){
-     switch(this.dialogName){
-       case 'accept-dialog':
-         return 'accept-dialog'
-      case 'decline-dialog':
-         return 'decline-dialog'
-        default:
-          return ''
-     }
-   }
+     return this.dialogName
+   },
    
   },
   methods: {
-     actionDecision(action){
-       switch(action.Name){
-         case 'Accept Case':
-           console.log(action)
-           this.dialogName = 'accept-dialog'
-           this.dialogOpen = true
-           break
-          case 'Decline Case':
-           console.log(action)
-           this.dialogName = 'decline-dialog'
-           this.dialogOpen = true
-           break
-          default:
-            console.log('default')
-       }
+     actionDecision(action, item){
+       this.dialogCase = item
+       this.dialogAction = action
+       console.log('dialog', this.dialogAction)
+       this.dialogName = `${action.Api}Dialog`
+       this.dialogOpen = true
+      //  switch(action.Name){
+      //    case 'Accept Case':
+      //      console.log(action)
+      //      console.log('item', item)
+      //      this.dialogName = 'accept-dialog'
+      //      this.dialogOpen = true
+      //      break
+      //     case 'Decline Case':
+      //      console.log(action)
+      //      this.dialogName = 'decline-dialog'
+      //      this.dialogOpen = true
+      //      break
+      //     default:
+      //       console.log('default')
+      //  }
       
      },
      changeDialog(dialogName){

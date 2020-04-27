@@ -8,7 +8,7 @@
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
         <v-card-text>
         <div class="secondary--text font-weight-medium my-2">
-            When you click “Accept,” <span class="font-weight-bold"> {{clientName}} </span> will receive the automated email you have previously created, tailored for this case.
+            When you click “Accept,” <span class="font-weight-bold"> {{dialogCase.firstname}} {{dialogCase.lastname}}</span> will receive the automated email you have previously created, tailored for this case.
             You may use the space below to ask questions and/or provide information pertaining to this case.
         </div>
         <div class="my-4 secondary--text">
@@ -44,25 +44,31 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'accept-dialog',
+    name: 'acceptCaseDialog',
     data() {
         return{
-            email: `Dear ${this.clientName},
+            email: `Dear ${this.dialogCase.firstname},
 Thank you for choosing me to review your Notice to Cease. Please allow 24 hours for review your documentation and the pleading. I will…`
         }
     },
     props: {
-        clientName: String,
+        dialogCase: Object,
+        dialogAction: Object,
     },
     methods:{
+        sub(){
+           console.log('di', this.dialogAction)
+        },
         submit(){
             axios
-                .post('http://localhost:3333/acceptCase',{
+                .post(`http://localhost:3333/acceptCase`,{
                         emailText: this.email,
+                        caseId: this.dialogAction.CaseId,
+                        caseActionId: this.dialogAction.CaseActionId
                         })
                         .then((response) => {
                         console.log(response);
-                        
+                        this.$store.dispatch('loadCases')
                         this.$emit('change:dialog', '')
                         }, (error) => {
                         console.log(error);

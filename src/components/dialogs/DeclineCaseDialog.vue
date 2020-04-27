@@ -47,7 +47,7 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'decline-dialog',
+    name: 'declineCaseDialog',
     data() {
         return{
             email: '',
@@ -63,7 +63,8 @@ export default {
         }
     },
     props: {
-        clientName: String,
+        dialogCase: Object,
+        dialogAction: Object,
     },
     methods:{
         submit(){
@@ -71,10 +72,11 @@ export default {
                 .post('http://localhost:3333/declineCase',{
                         emailText: this.email,
                         reason: this.reason,
+                        caseId: this.dialogAction.CaseId
                         })
                         .then((response) => {
                         console.log(response);
-                        
+                        this.$store.dispatch('loadCases')
                         this.$emit('change:dialog', '')
                         }, (error) => {
                         console.log(error);

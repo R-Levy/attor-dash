@@ -60,6 +60,9 @@ beforeCreate(){
 </script>
 
 <style>
+.v-dialog > .v-card > .v-card__title {
+  word-break: normal;
+}
 .v-application{
   font-family: Hind, sans-serif;
 }
