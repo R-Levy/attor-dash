@@ -51,7 +51,7 @@ const routes = [
     component: DocumentReview
   },
   {
-    path: '/case-view',
+    path: '/case-view/:id',
     name: 'case-view',
     component: CaseView,
     children: [

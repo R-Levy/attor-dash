@@ -4,16 +4,9 @@
             <v-icon>mdi-chevron-left</v-icon>
             view case
         </v-btn>
-        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">File Summons and Complaints</v-card-title>
+        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">File Consent to {{consentType}}</v-card-title>
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
         <v-card-text>
-        <div class="secondary--text font-weight-medium my-2">
-            Information about filing??
-        </div>
-        <div class="my-4 secondary--text">
-            <v-icon color="primary">mdi-alert-circle</v-icon>
-            Use the Easy Evictions mailing system</div>
-
         </v-card-text>
             <v-card-actions>
             <v-spacer></v-spacer>
@@ -26,7 +19,7 @@
                 cancel
             </v-btn>
 
-            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">File</v-btn>
+            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">consent reviewed</v-btn>
             </v-card-actions>
     </v-card>
 
@@ -34,24 +27,35 @@
 
 <script>
 import axios from 'axios'
+var moment = require('moment');
+
 export default {
-    name: 'fileSCDialog',
+    name: 'fileConsentDialog',
     data() {
         return{
-            email: `Dear ${this.dialogCase.firstname},
-Thank you for choosing me to review your Notice to Cease. Please allow 24 hours for review your documentation and the pleading. I will…`
+            filedDate: moment().format('MM.DD.YY'),
         }
     },
     props: {
         dialogCase: Object,
         dialogAction: Object,
     },
+    computed: {
+        consentType(){
+            return this.dialogAction.Name === 'File Consent to Stay'? 'Stay': 'Vacate'
+        }
+    },
     methods:{
+        sub(){
+            console.log(this.filedDate)
+        },
         submit(){
             axios
-                .post(`http://localhost:3333/fileSC`,{
+                .post(`http://localhost:3333/fileConsent`,{
                         caseId: this.dialogAction.CaseId,
-                        caseActionId: this.dialogAction.CaseActionId
+                        caseActionId: this.dialogAction.CaseActionId,
+                        consentType: this.consentType,
+                        filedDate: this.filedDate
                         })
                         .then((response) => {
                         console.log(response);

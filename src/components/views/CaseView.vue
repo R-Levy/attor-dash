@@ -15,7 +15,7 @@
             <router-view></router-view>
         </v-col>
         <v-col cols="2">
-            <next-step />
+            <next-step :currentCase="currentCase"/>
             <timeline />
         </v-col>
     </v-row>
@@ -45,7 +45,13 @@ export default {
     data() {
         return{
         }
+    },
+    computed: {
+        currentCase(){
+           return this.$store.getters.currentCase(this.$route.params.id)
+        },
     }
+    
 
 }
 </script>

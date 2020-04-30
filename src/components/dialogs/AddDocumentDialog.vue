@@ -4,7 +4,6 @@
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
         <v-card-text>
         <v-container>
-            <div v-for="filter in filters" :key="filter.filter1">
             <v-row  v-if="!caseID" align-content="center">
             <v-col class="pt-0">
                 <vue-dropzone id="drop1" :options="dropOptions" ></vue-dropzone>

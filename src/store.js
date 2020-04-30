@@ -12,6 +12,7 @@ export const store = new Vuex.Store({
       dialog: '',
       userHeaders: ['name', 'service', 'address', 'parties','county','hearing','status','action', 'message', 'case-view'],
       cases: [],
+      //currentCase: {},
       tasks: [],
       attorney: {
       }
@@ -24,6 +25,9 @@ export const store = new Vuex.Store({
         userHeaders: state => state.userHeaders,
         tasks: state => state.tasks,
         cases: state => state.cases,
+        currentCase: (state) => (id) => {
+          return state.cases.find(singleCase => singleCase.id == id)
+        },
         completedTasks: state => {
           return state.tasks.filter(task => task.status === 'completed').length
         },

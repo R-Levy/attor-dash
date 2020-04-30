@@ -10,8 +10,8 @@
       <div class="font-weight-medium">{{item.firstname}} {{item.lastname}}</div>
     </template>
 
-    <template v-slot:item.case-view>
-      <v-btn x-small rounded depressed color="primary" :to="{path: 'case-view'}">view</v-btn>
+    <template v-slot:item.case-view={item}>
+      <v-btn x-small rounded depressed color="primary" :to="{path: `case-view/${item.id}`}">view</v-btn>
     </template>
 
     <template v-slot:item.message>
@@ -43,20 +43,21 @@
 
     <template v-slot:item.action={item}>
       <span v-for="action in item.actions" :key="action.actionId">
-      <div><a href="#" @click="actionDecision(action, item)">{{action.Name}}</a></div>
+      <div><a href="#" @click.stop="actionDecision(action, item)">{{action.Name}}</a></div>
       
     </span>
 
       <!-- <div class="lighter-blue">Due: {{item.action.date}}</div> -->
 
+    </template>
+    </v-data-table>
+    
       <v-dialog
       v-model="dialogOpen" value="''"
       max-width="500"
     >
       <component :is="dynamicDialog" @change:dialog="changeDialog" :dialogCase="dialogCase" :dialogAction="dialogAction"></component>
     </v-dialog>
-    </template>
-    </v-data-table>
 </div>
 </template>
 
@@ -64,12 +65,21 @@
 import AcceptCaseDialog from '@/components/dialogs/AcceptCaseDialog'
 import DeclineCaseDialog from '@/components/dialogs/DeclineCaseDialog'
 import FileSCDialog from '@/components/dialogs/FileSCDialog'
+import EnterCourtInfoDialog from '@/components/dialogs/EnterCourtInfoDialog'
+import ReviewConsentDialog from '@/components/dialogs/ReviewConsentDialog'
+import FileConsentDialog from '@/components/dialogs/FileConsentDialog'
+import EnterCourtResultsDialog from '@/components/dialogs/EnterCourtResultsDialog'
+
 export default {
     name: 'case-table',
     components: {
       AcceptCaseDialog,
       DeclineCaseDialog,
       FileSCDialog,
+      EnterCourtInfoDialog,
+      ReviewConsentDialog,
+      FileConsentDialog,
+      EnterCourtResultsDialog,
     },
     data () {
       return {
@@ -178,28 +188,12 @@ export default {
      actionDecision(action, item){
        this.dialogCase = item
        this.dialogAction = action
-       console.log('dialog', this.dialogAction)
        this.dialogName = `${action.Api}Dialog`
        this.dialogOpen = true
-      //  switch(action.Name){
-      //    case 'Accept Case':
-      //      console.log(action)
-      //      console.log('item', item)
-      //      this.dialogName = 'accept-dialog'
-      //      this.dialogOpen = true
-      //      break
-      //     case 'Decline Case':
-      //      console.log(action)
-      //      this.dialogName = 'decline-dialog'
-      //      this.dialogOpen = true
-      //      break
-      //     default:
-      //       console.log('default')
-      //  }
+
       
      },
      changeDialog(dialogName){
-        window.console.log(dialogName)
         this.$store.commit('setDialog', dialogName)
         this.dialogOpen = false
       },
@@ -207,11 +201,14 @@ export default {
     this.$store.dispatch('loadCases')
       },
       fixDate(date){
+        if (date){
           var d = new Date(Date.parse(date));
           var day = d.getDate()
           var month = d.getMonth()+1 //months are counted starting from 0
           var yr = d.getFullYear()
           return `${month}.${day}.${yr}`
+        }
+        return ''
       },
    }
 }
