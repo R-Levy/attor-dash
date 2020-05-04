@@ -22,6 +22,20 @@
                 ></v-text-field>
             </v-col>
             </v-row>
+            <v-row align-content="center">
+            <v-col class="pt-0">
+                <div class="font-weight-medium secondary--text">Judge</div>
+                <v-text-field
+                v-model="court.judge"
+                rounded
+                hide-details
+                solo
+                flat
+                dense
+                background-color="#F0F5F6"
+                ></v-text-field>
+            </v-col>
+            </v-row>
             
             <v-row align-content="center">
             <v-col class="pt-0">
@@ -86,6 +100,7 @@ export default {
             court: {
                 name: '',
                 date: '',
+                judge: '',
                 reminders: [],
             },
             menu: false,

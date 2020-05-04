@@ -5,7 +5,7 @@
         <v-col cols="10" class="pl-6 pt-0">
             <v-row>
             <v-col cols="4">
-                <client-info-card />
+                <client-info-card :clientId="currentCase.clientId"/>
             </v-col>
             <v-col cols="8">
                 <case-overview-card />

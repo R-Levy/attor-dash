@@ -4,29 +4,9 @@
             <v-icon>mdi-chevron-left</v-icon>
             view case
         </v-btn>
-        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Enter Court Results</v-card-title>
+        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">File Adjournment with Court</v-card-title>
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
         <v-card-text>
-        <v-container>
-            <v-row align-content="center">
-            <v-col class="pt-0">
-                <div class="font-weight-medium secondary--text">Court Decision</div>
-                <v-select
-                rounded
-                hide-details
-                solo
-                flat
-                dense
-                background-color="#F0F5F6"
-                v-model="courtDecision"
-                :items="['Consent and Stay', 'Consent and Vacate', 'Default Judgement', 'Judgement for Possession', 'Judgement for Possession - Orderly Removal', 'Lost Case', 'Marini Hearing', 'Other']"
-                >
-                <v-icon medium slot="append" color="accent">mdi-chevron-down</v-icon></v-select>
-            </v-col>
-            </v-row>
-        </v-container>
-
-
         </v-card-text>
             <v-card-actions>
             <v-spacer></v-spacer>
@@ -39,7 +19,7 @@
                 cancel
             </v-btn>
 
-            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">Submit</v-btn>
+            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">file</v-btn>
             </v-card-actions>
     </v-card>
 
@@ -47,24 +27,32 @@
 
 <script>
 import axios from 'axios'
+var moment = require('moment');
+
 export default {
-    name: 'enterCourtResultsDialog',
+    name: 'fileConsentDialog',
     data() {
         return{
-            courtDecision: '',
+            filedDate: moment().format('MM.DD.YY'),
         }
     },
     props: {
         dialogCase: Object,
         dialogAction: Object,
     },
+    computed: {
+    },
     methods:{
+        sub(){
+            console.log(this.filedDate)
+        },
         submit(){
             axios
-                .post(`http://localhost:3333/enterCourtResults`,{
+                .post(`http://localhost:3333/fileAdjournment`,{
                         caseId: this.dialogAction.CaseId,
                         caseActionId: this.dialogAction.CaseActionId,
-                        courtDecision: this.courtDecision
+                        consentType: this.consentType,
+                        filedDate: this.filedDate
                         })
                         .then((response) => {
                         console.log(response);

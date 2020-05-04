@@ -15,8 +15,8 @@
     </v-avatar>
     </div>
 
-    <div class="font-weight-bold headline">{{client.name}}</div>
-    <div class="font-weight-medium title">{{client.title}}</div>
+    <div class="font-weight-bold headline">{{client.firstname}} {{client.lastname}}</div>
+    <div class="font-weight-medium title">{{client.jobTitle}}</div>
     <router-link class="accent--text" :to="{ name: 'main' }">all cases</router-link>
 
     <div id="client-info" class="py-6">
@@ -30,8 +30,8 @@
     </div>
     <div>
         <p class="overline info--text font-weight-bold mb-1"> address </p>
-        <p class="spaced-text mb-0">{{client.address.street}},</p>
-        <p class="spaced-text">{{client.address.city}}, {{client.address.state}} {{client.address.zip}}</p>
+        <p class="spaced-text mb-0">{{client.address}},</p>
+        <p class="spaced-text">{{client.city}}, {{client.state}} {{client.zipcode}}</p>
     </div>
     </div>
 
@@ -43,20 +43,21 @@ export default {
     name: 'client-info-card',
     data(){
         return{
-            client: {
-                avatar: '',
-                name: 'Jayne Smith',
-                title: 'Property Manager',
-                phone: '347.453.4545',
-                email: 'smith@marketing.com',
-                address: {
-                        street:'1123 Broadway Ave.',
-                        city: 'Newark',
-                        state: 'NJ',
-                        zip: '99938'
-                        }
-            }
+            client: {}
         }
+    },
+    props: {
+      clientId: Number
+    },
+    methods: {
+      async getClient(){
+        await this.$http.get(`http://localhost:3333/clients/${this.clientId}`)
+        .then(r => r.data)
+        .then(data => this.client = data)
+      }
+    },
+    created(){
+      this.getClient()
     }
 
 }

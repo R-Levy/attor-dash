@@ -69,6 +69,7 @@ import EnterCourtInfoDialog from '@/components/dialogs/EnterCourtInfoDialog'
 import ReviewConsentDialog from '@/components/dialogs/ReviewConsentDialog'
 import FileConsentDialog from '@/components/dialogs/FileConsentDialog'
 import EnterCourtResultsDialog from '@/components/dialogs/EnterCourtResultsDialog'
+import AskClientforWORDialog from '@/components/dialogs/AskClientforWORDialog'
 
 export default {
     name: 'case-table',
@@ -80,6 +81,7 @@ export default {
       ReviewConsentDialog,
       FileConsentDialog,
       EnterCourtResultsDialog,
+      AskClientforWORDialog,
     },
     data () {
       return {
@@ -189,6 +191,7 @@ export default {
        this.dialogCase = item
        this.dialogAction = action
        this.dialogName = `${action.Api}Dialog`
+       console.log(this.dialogName)
        this.dialogOpen = true
 
       
