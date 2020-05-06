@@ -122,9 +122,10 @@
                 Amount
                 </v-col>
             </v-row>
+            <div v-for="(term, index) in terms" :key="index">
             <v-row>
                 <v-col cols="1" class="pt-5 subtitle-2 accent--text">
-                    1
+                    {{index +1}}
                 </v-col>
                 <v-col>
                 <v-menu
@@ -137,7 +138,7 @@
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  v-model="termDate"
+                  v-model="term.date"
                   prepend-inner-icon=""
                   readonly
                   rounded
@@ -149,7 +150,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="termDate" @input="menu = false"></v-date-picker>
+              <v-date-picker v-model="term.date" @input="menu = false"></v-date-picker>
             </v-menu>
                 </v-col>
                 <v-col>
@@ -161,16 +162,169 @@
               flat
               dense
               background-color="#F0F5F6"
-              v-model="amoutn"
+              v-model="term.amount"
         ></v-text-field>
                 </v-col>
             </v-row>
+            </div>
             </v-container>
           </v-col>
         </v-row>
+        
+            <v-row class="d-flex justify-end">
+            <v-btn color="accent" class="mx-6" :disabled="terms[terms.length-1].date === ''" text @click="addTerm"><v-icon left>mdi-plus</v-icon> add term</v-btn>
+            </v-row>
 
+        <v-row align-content="center">
+          <v-col>
+            <div class="font-weight-medium secondary--text">Specify any other terms in the consent:</div>
+            <v-textarea
+              rounded
+              hide-details
+              solo
+              flat
+              dense
+              background-color="#F0F5F6"
+              v-model="complaintBalance"
+        ></v-textarea>
+          </v-col>
+        </v-row>
+        </span>
+
+        <span v-if="courtDecision === 'Consent and Vacate'">
+          <v-row>
+            <v-col class="pt-0">
+            <div
+              class="font-weight-medium secondary--text"
+            >What is the date that the tenant has to vacate?</div>
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="computedCourtDateFormatted"
+                  prepend-inner-icon="mdi-calendar"
+                  readonly
+                  rounded
+                  hide-details
+                  solo
+                  flat
+                  dense
+                  background-color="#F0F5F6"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="newDate" @input="menu = false"></v-date-picker>
+            </v-menu>
+          </v-col>
+        </v-row>
+
+        <v-row align-content="center">
+          <v-col>
+            <div class="font-weight-medium secondary--text">Were there any payment terms in the consent?</div>
+            <v-radio-group class="ma-0 pb-2" v-model="paymentTerms" :mandatory="false" hide-details row>
+              <v-radio label="Yes" value="yes" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+              <v-radio label="No" value="no" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+            </v-radio-group>
+          </v-col>
+        </v-row>
+        
+        <span v-if="paymentTerms === 'yes'">
+        <v-row align-content="center">
+          <v-col>
+            <div class="font-weight-medium secondary--text">Have you received money from the tenant in court?</div>
+            <v-radio-group class="ma-0 pb-2" v-model="moneyInCourt" :mandatory="false" hide-details row>
+              <v-radio label="Yes" value="yes" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+              <v-radio label="No" value="no" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+            </v-radio-group>
+            <span v-if="moneyInCourt === 'yes'">
+            <v-text-field
+              prefix="$"
+              rounded
+              hide-details
+              solo
+              flat
+              dense
+              background-color="#F0F5F6"
+              v-model="moneyInCourtAmount"
+        ></v-text-field>
+            </span>
+          </v-col>
+        </v-row>
+
+        <v-row align-content="center">
+          <v-col>
+            <div class="font-weight-medium secondary--text">Please specify the payment installments in the consent:</div>
+            <v-container>
+            <v-row align-content="center" class="text-center">
+                <v-col>
+                Date
+                </v-col>
+                <v-col>
+                Amount
+                </v-col>
+            </v-row>
+            <div v-for="(term, index) in terms" :key="index">
+            <v-row>
+                <v-col cols="1" class="pt-5 subtitle-2 accent--text">
+                    {{index +1}}
+                </v-col>
+                <v-col>
+                <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="term.date"
+                  prepend-inner-icon=""
+                  readonly
+                  rounded
+                  hide-details
+                  solo
+                  flat
+                  dense
+                  background-color="#F0F5F6"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="term.date" @input="menu = false"></v-date-picker>
+            </v-menu>
+                </v-col>
+                <v-col>
+                <v-text-field
+              prefix="$"
+              rounded
+              hide-details
+              solo
+              flat
+              dense
+              background-color="#F0F5F6"
+              v-model="term.amount"
+        ></v-text-field>
+                </v-col>
+            </v-row>
+            </div>
+            </v-container>
+          </v-col>
+        </v-row>
+        
+            <v-row class="d-flex justify-end">
+            <v-btn color="accent" class="mx-6" :disabled="terms[terms.length-1].date === ''" text @click="addTerm"><v-icon left>mdi-plus</v-icon> add term</v-btn>
+            </v-row>
 
         </span>
+        </span>
+
         <v-row align-content="center">
           <v-col>
             <div
@@ -242,10 +396,15 @@ export default {
       courtDecision: "",
       wor: "",
       moneyInCourt: "no",
+      paymentTerms: '',
       menu: false,
       newDate: '',
-      termDate: '',
-      
+      terms: [
+        {
+          date: '',
+          amount: '',
+            }
+      ],      
       currFiles: [],
       files: []
     };
@@ -286,6 +445,13 @@ export default {
         const [year, month, day] = date.split('-')
         return `${month}/${day}/${year}`
       },
+      addTerm(){
+            this.terms.push({
+                date: '',
+                amount: '',
+            })
+            console.log(this.terms)
+        }
   },
   computed: {
       computedCourtDateFormatted () {

@@ -30,7 +30,7 @@ import axios from 'axios'
 var moment = require('moment');
 
 export default {
-    name: 'fileConsentDialog',
+    name: 'fileAdjournmentDialog',
     data() {
         return{
             filedDate: moment().format('MM.DD.YY'),

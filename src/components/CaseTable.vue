@@ -70,6 +70,7 @@ import ReviewConsentDialog from '@/components/dialogs/ReviewConsentDialog'
 import FileConsentDialog from '@/components/dialogs/FileConsentDialog'
 import EnterCourtResultsDialog from '@/components/dialogs/EnterCourtResultsDialog'
 import AskClientforWORDialog from '@/components/dialogs/AskClientforWORDialog'
+import FileAdjournmentDialog from '@/components/dialogs/FileAdjournmentDialog'
 
 export default {
     name: 'case-table',
@@ -82,6 +83,8 @@ export default {
       FileConsentDialog,
       EnterCourtResultsDialog,
       AskClientforWORDialog,
+      FileAdjournmentDialog,
+
     },
     data () {
       return {

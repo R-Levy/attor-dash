@@ -4,17 +4,74 @@
             <v-icon>mdi-chevron-left</v-icon>
             view case
         </v-btn>
-        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">File Summons and Complaints</v-card-title>
+        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Summons and Complaints</v-card-title>
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
-        <v-card-text>
-        <div class="secondary--text font-weight-medium my-2">
-            Information about filing??
-        </div>
-        <div class="my-4 secondary--text">
-            <v-icon color="primary">mdi-alert-circle</v-icon>
-            Use the Easy Evictions mailing system</div>
+  <v-stepper alt-labels v-model="e1">
+    <v-stepper-header>
+      <v-stepper-step :complete="e1 > 1" step="1">Review</v-stepper-step>
 
-        </v-card-text>
+      <v-divider></v-divider>
+
+      <v-stepper-step :complete="e1 > 2" step="2">Accept</v-stepper-step>
+
+      <v-divider></v-divider>
+
+      <v-stepper-step step="3">File</v-stepper-step>
+    </v-stepper-header>
+
+    <v-stepper-items>
+      <v-stepper-content step="1">
+        <v-card
+          class="mb-12"
+          color="grey lighten-1"
+          height="200px"
+        ></v-card>
+
+        <v-btn
+          color="primary"
+          @click="e1 = 2"
+        >
+          Continue
+        </v-btn>
+
+        <v-btn text>Cancel</v-btn>
+      </v-stepper-content>
+
+      <v-stepper-content step="2">
+        <v-card
+          class="mb-12"
+          color="grey lighten-1"
+          height="200px"
+        ></v-card>
+
+        <v-btn
+          color="primary"
+          @click="e1 = 3"
+        >
+          Continue
+        </v-btn>
+
+        <v-btn text>Cancel</v-btn>
+      </v-stepper-content>
+
+      <v-stepper-content step="3">
+        <v-card
+          class="mb-12"
+          color="grey lighten-1"
+          height="200px"
+        ></v-card>
+
+        <v-btn
+          color="primary"
+          @click="e1 = 1"
+        >
+          Continue
+        </v-btn>
+
+        <v-btn text>Cancel</v-btn>
+      </v-stepper-content>
+    </v-stepper-items>
+  </v-stepper>
             <v-card-actions>
             <v-spacer></v-spacer>
 
@@ -38,6 +95,7 @@ export default {
     name: 'fileSCDialog',
     data() {
         return{
+            e1: 1,
             email: `Dear ${this.dialogCase.firstname},
 Thank you for choosing me to review your Notice to Cease. Please allow 24 hours for review your documentation and the pleading. I will…`
         }
