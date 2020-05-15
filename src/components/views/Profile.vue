@@ -1,7 +1,7 @@
 <template>
   <div class="my-10 mx-12">
     <div class="d-flex justify-space-between secondary--text ">
-    <div class="font-weight-medium display-1 spaced-text">PROFILE</div>
+    <div class="font-weight-bold display-1 spaced-text">PROFILE</div>
     <div class=""><span class="font-weight-medium">Member Since</span> {{fixDate(attorney.Created_at)}}</div>
     </div>
     <v-container fluid>

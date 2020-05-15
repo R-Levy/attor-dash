@@ -4,7 +4,7 @@
     <div
       v-for="item in items"
       :key="item.title">
-      <page-nav-item :title="item.title" :icon="item.icon" :path="item.path" />
+      <page-nav-item :title="item.title" :icon="item.icon" :path="`${caseId}/${item.path}`" />
       </div>
     </div>
   </v-card>
@@ -16,6 +16,9 @@ export default {
     name: 'PageNavBar',
     components: {
       PageNavItem,
+    },
+    props: {
+      caseId: Number,
     },
     data () {
       return {

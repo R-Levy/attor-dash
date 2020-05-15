@@ -47,10 +47,14 @@ export default {
     name: 'askClientforWORDialog',
     data() {
         return{
+            courtDecision: 'Judgement for Possession',
             email: `Dear ${this.dialogCase.firstname},
-As the results of your hearing was ${this.courtDecision}, it is advisable that a Warrant of Removal be filed. Please inform me if you would like one to be filed on your behalf...`,
-        courtDecision: 'Judgement for Possession'
+As the results of your hearing was Judgement for Possession, it is advisable that a Warrant of Removal be filed. Please inform me if you would like one to be filed on your behalf...`,
+//As the results of your hearing was ${this.courtDecision}, it is advisable that a Warrant of Removal be filed. Please inform me if you would like one to be filed on your behalf...`,
+
         }
+    },
+    computed:{
     },
     props: {
         dialogCase: Object,
@@ -62,7 +66,7 @@ As the results of your hearing was ${this.courtDecision}, it is advisable that a
         },
         submit(){
             axios
-                .post(`http://localhost:3333/sendWORRequest`,{
+                .post(`http://localhost:3333/askClientForWOR`,{
                         emailText: this.email,
                         caseId: this.dialogAction.CaseId,
                         caseActionId: this.dialogAction.CaseActionId

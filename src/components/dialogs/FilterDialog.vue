@@ -13,36 +13,27 @@
                 solo
                 flat
                 dense
+                hide-details
                 background-color="#F0F5F6"
-                :items="['Client', 'Service Type', 'County', 'Hearing', 'Status']"
+                :items="['Client', 'Service', 'County', 'Hearing', 'Status']"
                 label="Select Criteria"
                 >
                 <v-icon medium slot="append" color="accent">mdi-chevron-down</v-icon></v-select>
             </v-col>
-            <v-col>
-                <v-select
-                rounded
-                solo
-                flat
-                dense
-                background-color="#F0F5F6"
-                :items="['is']"
-                label="Select Condition"
-                >
-                <v-icon medium slot="append" color="accent">mdi-chevron-down</v-icon></v-select>
+            <v-col cols="1">
+                <div class="font-weight-medium subtitle-1 text-center">is</div>
             </v-col>
             <v-col>
-                <v-select
+                <v-text-field
                 v-model="filter.filter2"
                 rounded
                 solo
                 flat
                 dense
+                hide-details
                 background-color="#F0F5F6"
-                :items="['essex', 'newark']"
-                label="Select Value"
-                >
-                <v-icon medium slot="append" color="accent">mdi-chevron-down</v-icon></v-select>
+                label="Enter Value"
+                ></v-text-field>
             </v-col>
             <v-col cols="1">
             <v-btn icon color="info"><v-icon>mdi-close</v-icon></v-btn>
@@ -54,8 +45,8 @@
             <v-btn large color="accent" class="mx-6" text @click="addFilter"><v-icon left>mdi-plus-circle-outline</v-icon> add filter</v-btn>
             </v-row>
         </v-container>
-
         </v-card-text>
+
             <v-card-actions>
             <v-spacer></v-spacer>
 
@@ -88,7 +79,8 @@ export default {
     },
     methods:{
         submit(){
-            this.$emit('change:dialog', '')
+            this.$emit('update:filters', this.filters)
+             this.$emit('change:dialog', '')
         },
         addFilter(){
             this.filters.push({

@@ -2,9 +2,9 @@
   <v-card :tile="!rounded" :class="{'rounded-card': rounded}" class='pb-4'>
     <v-card-title class='secondary--text font-weight-bold d-flex flex-column align-start pl-12'>
       <div>{{title}}</div>
-      <filter-area :button="filterAreaButton" :add-type="addType" />
+      <filter-area :button="filterAreaButton" :add-type="addType" @change:filters="changeFilters"/>
     </v-card-title>
-    <slot name='data'></slot>
+    <slot name='data' :tableFilters="tableFilters"></slot>
   </v-card>
 </template>
 
@@ -24,6 +24,17 @@ export default {
                 },
       filterAreaButton: String,
       addType: String,
+    },
+    data(){
+      return{
+        tableFilters: {}
+      }
+    },
+    methods:{
+      changeFilters(filters){
+        this.tableFilters = filters
+        console.log(this.tableFilters)
+      }
     }
 
 }

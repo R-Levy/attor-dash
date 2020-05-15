@@ -4,48 +4,20 @@
             <v-icon>mdi-chevron-left</v-icon>
             view case
         </v-btn>
-        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Enter Court Information</v-card-title>
+        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Court Response to Adjournment Request</v-card-title>
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
         <v-card-text>
-         <v-container>
-            <div class="font-weight-medium secondary--text">Docket Number</div>
-            <v-row align="end">
-            <v-col class="pt-0"  cols="3">
-                <v-text-field
-                v-model="court.docket_prefix"
-                rounded
-                hide-details
-                solo
-                flat
-                dense
-                background-color="#F0F5F6"
-                ></v-text-field>
-            </v-col>
-            <div class="font-weight-medium secondary--text pb-6">-</div>
-            <v-col class="pt-0">
-                <v-text-field
-                v-model="court.docket_mid"
-                rounded
-                hide-details
-                solo
-                flat
-                dense
-                background-color="#F0F5F6"
-                ></v-text-field>
-            </v-col>
-            <div class="font-weight-medium secondary--text pb-6">-</div>
-            <v-col class="pt-0" cols="4">
-                <v-text-field
-                v-model="court.docket_end"
-                rounded
-                hide-details
-                solo
-                flat
-                dense
-                background-color="#F0F5F6"
-                ></v-text-field>
-            </v-col>
-            </v-row>
+        
+        <div
+              class="font-weight-medium secondary--text"
+            >Enter the Court's response:</div>
+            <v-radio-group class="ma-0" v-model="response" :mandatory="false" hide-details row>
+              <v-radio label="Adjournment Request Granted" value="granted" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+              <v-radio label="Adjournment Request Denied" value="denied" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+            </v-radio-group>
+
+        <div v-if="response === 'granted'" class="mt-4">
+             <v-container>
             <v-row align-content="center">
             <v-col class="pt-0">
                 <div class="font-weight-medium secondary--text">Court Name</div>
@@ -219,8 +191,34 @@
             </v-col>
             </v-row>
         </v-container>
+        </div>
+        <div v-if="response === 'denied'" class="mt-4">
+            <div class="font-weight-medium secondary--text">Why was the request denied?</div>
+            <v-textarea
+              hide-details
+              solo
+              flat
+              dense
+              background-color="#F0F5F6"
+              v-model="reason"
+        ></v-textarea>
+        <div class="secondary--text font-weight-medium my-2">
+            When you click “Submit,” <span class="font-weight-bold"> {{dialogCase.firstname}} {{dialogCase.lastname}}</span> will receive the automated email you have previously created, tailored for this case.
+            You may use the space below to ask questions and/or provide information pertaining to this case.
+        </div>
+        <div class="my-4 secondary--text">
+            <v-icon color="primary" small>mdi-alert-circle</v-icon>
+            Haven’t set up your email templates? You may create them <router-link :to="{ name: 'main' }">here</router-link></div>
 
-
+        <div class="custom-overline  info--text font-weight-medium  mb-1"> Message </div>
+        <v-textarea
+          class="mb-4"
+          filled
+          no-resize
+          background-color="#F0F5F6"
+          v-model="email"
+        ></v-textarea>
+        </div>
         </v-card-text>
             <v-card-actions>
             <v-spacer></v-spacer>
@@ -233,7 +231,7 @@
                 cancel
             </v-btn>
 
-            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">Submit</v-btn>
+            <v-btn rounded color="accent" class="px-8" small :dark="response !== ''" depressed @click="submit" :disabled="response === ''">Submit</v-btn>
             </v-card-actions>
     </v-card>
 
@@ -241,12 +239,16 @@
 
 <script>
 import axios from 'axios'
-var moment = require('moment');
+
 export default {
-    name: 'enterCourtInfoDialog',
+    name: 'adjournmentCourtResponseDialog',
     data() {
         return{
-            court: {
+            //email: `Dear ${this.dialogCase.firstname},
+//The court has denied your adjournment request due to ${reason}. Consequently, the case will be proceeding on the original date. Please contact me if you have any further questions. `,
+        response: '',
+        reason: '',
+        court: {
                 name: '',
                 address: '',
                 city: '',
@@ -258,9 +260,6 @@ export default {
                 judge: '',
                 room: '',
                 reminders: [],
-                docket_prefix: 'LT',
-                docket_mid: '',
-                docket_end: moment().format('YY')
             },
             datemenu: false,
             timemenu: false,
@@ -270,27 +269,23 @@ export default {
         dialogCase: Object,
         dialogAction: Object,
     },
-    mounted() {
-        this.court.name = 'Atlantic County Courthouse'
-        this.court.address = '1201 Bacharach Blvd.'
-        this.court.city = 'Atlantic City'
-        this.court.state = 'NJ'
-        this.court.zipcode = '08401'
-        this.court.phone = '(609) 402-0100'
-        this.court.judge = 'McClain'
-        this.court.room = '1C'
+    computed: {
+        email(){
+            return `Dear ${this.dialogCase.firstname},
+The court has denied your adjournment request due to the fact that ${this.reason}. Consequently, the case will be proceeding on the original date. Please contact me if you have any further questions. `
+        }
     },
     methods:{
         sub(){
-            console.log(this.court)
+           console.log('di', this.dialogAction)
         },
         submit(){
-            let courtInfo = this.court
+            if (this.response === 'granted'){
             axios
-                .post(`http://localhost:3333/enterCourtInfo`,{
+                .post(`http://localhost:3333/adjournmentGranted`,{
+                        courtInfo: this.court,
                         caseId: this.dialogAction.CaseId,
-                        caseActionId: this.dialogAction.CaseActionId,
-                        courtInfo: courtInfo
+                        caseActionId: this.dialogAction.CaseActionId
                         })
                         .then((response) => {
                         console.log(response);
@@ -299,8 +294,26 @@ export default {
                         }, (error) => {
                         console.log(error);
                         })
+            }
         },
     },
+    mounted(){
+        axios
+            .get(`http://localhost:3333/courtInfo/${this.dialogCase.id}`)
+            .then(r => r.data)
+            .then((data) => {
+                this.court.name = data.courtName
+                this.court.address = data.address
+                this.court.city = data.city
+                this.court.state = data.state
+                this.court.zipcode = data.zipcode
+                this.court.judge = data.judge
+                this.court.phone = data.phone
+                this.court.room = data.room
+            }), (error) => {
+                console.log(error)
+            }
+    }
 
 }
 </script>

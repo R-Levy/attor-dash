@@ -325,6 +325,110 @@
         </span>
         </span>
 
+        <span v-if="courtDecision === 'Marini Hearing'">
+          <v-row>
+            <v-col class="pt-0">
+            <div
+              class="font-weight-medium secondary--text"
+            >If you received a date for the next court appearance enter it below:</div>
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="computedCourtDateFormatted"
+                  prepend-inner-icon="mdi-calendar"
+                  readonly
+                  rounded
+                  hide-details
+                  solo
+                  flat
+                  dense
+                  background-color="#F0F5F6"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="newDate" @input="menu = false"></v-date-picker>
+            </v-menu>
+          </v-col>
+        </v-row>
+
+                  <v-row>
+            <v-col class="pt-0">
+            <div
+              class="font-weight-medium secondary--text"
+            >When are all of the repairs to be completed?</div>
+            <v-menu
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              transition="scale-transition"
+              offset-y
+              min-width="290px"
+            >
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  v-model="computedCourtDateFormatted"
+                  prepend-inner-icon="mdi-calendar"
+                  readonly
+                  rounded
+                  hide-details
+                  solo
+                  flat
+                  dense
+                  background-color="#F0F5F6"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="newDate" @input="menu = false"></v-date-picker>
+            </v-menu>
+          </v-col>
+        </v-row>
+
+        <v-row align-content="center">
+          <v-col>
+            <div class="font-weight-medium secondary--text">How much money was the tenant required to deposit with the court?</div>
+            <v-radio-group class="ma-0 pb-2" v-model="moneyInCourt" :mandatory="false" hide-details row>
+              <v-radio label="Full Amount" value="yes" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+              <v-radio label="Other" value="no" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+            </v-radio-group>
+            <span v-if="moneyInCourt !== 'Full Amount'">
+            <v-text-field
+              prefix="$"
+              rounded
+              hide-details
+              solo
+              flat
+              dense
+              background-color="#F0F5F6"
+              v-model="moneyInCourtAmount"
+        ></v-text-field>
+            </span>
+          </v-col>
+        </v-row>
+
+         <v-row align-content="center">
+          <v-col>
+            <div class="font-weight-medium secondary--text">Specify any other terms in the consent:</div>
+            <v-textarea
+              rounded
+              hide-details
+              solo
+              flat
+              dense
+              background-color="#F0F5F6"
+              v-model="complaintBalance"
+        ></v-textarea>
+          </v-col>
+        </v-row>
+        
+        </span>
+
         <v-row align-content="center">
           <v-col>
             <div
@@ -418,6 +522,7 @@ export default {
       axios
         .post(`http://localhost:3333/enterCourtResults`, {
           caseId: this.dialogAction.CaseId,
+          wor: this.wor,
           caseActionId: this.dialogAction.CaseActionId,
           courtDecision: this.courtDecision
         })

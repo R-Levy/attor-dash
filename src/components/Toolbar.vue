@@ -12,6 +12,7 @@
 
       <v-spacer></v-spacer>
       <span v-if="isLoggedIn">
+        <timer />
       <v-btn icon>
         <v-icon color='info' small >$tasks</v-icon>
       </v-btn>
@@ -30,8 +31,12 @@
 </template>
 
 <script>
+import Timer from '@/components/Timer.vue'
 export default {
     name: 'Toolbar',
+    components: {
+      Timer
+    },
     computed: {
       isLoggedIn: function(){return this.$store.getters.isLoggedIn}
     },

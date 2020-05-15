@@ -10,7 +10,7 @@ export const store = new Vuex.Store({
       status: '',
       token: localStorage.getItem('acc_token') || '',
       dialog: '',
-      userHeaders: ['name', 'service', 'address', 'parties','county','hearing','status','action', 'message', 'case-view'],
+      userHeaders: ['name', 'planDescription', 'address', 'parties','county','hearingDate','status','action', 'message', 'case-view'],
       cases: [],
       //currentCase: {},
       tasks: [],
@@ -102,6 +102,7 @@ export const store = new Vuex.Store({
             })
             .then(r => r.data)
             .then(data =>{
+              console.log(data)
               commit('set_cases', data)
             })
         },

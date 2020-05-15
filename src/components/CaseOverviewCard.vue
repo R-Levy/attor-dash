@@ -67,6 +67,26 @@
 <script>
 export default {
     name: 'case-overview-card',
+    props:{
+        caseId: Number,
+    },
+    mounted(){
+        this.$http
+            .get(`http://localhost:3333/courtInfo/${this.caseId}`)
+            .then(r => r.data)
+            .then((data) => {
+                //this.court.name = data.courtName
+                this.courtInfo.courtAddress.street = data.address
+                this.courtInfo.courtAddress.city = data.city
+                this.courtInfo.courtAddress.state = data.state
+                this.courtInfo.courtAddress.zipcode = data.zipcode
+                this.courtInfo.judge = data.judge
+                //this.court.phone = data.phone
+                //this.court.room = data.room
+            }), (error) => {
+                console.log(error)
+            }
+    },
     data(){
         return{
             courtInfo: {

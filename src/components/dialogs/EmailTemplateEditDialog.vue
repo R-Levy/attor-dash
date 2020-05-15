@@ -1,30 +1,28 @@
 <template>
     <v-card class="px-6 secondary--text">
-        <v-btn class="mt-4 mb-0" color="accent" text>
+        <!-- <v-btn class="mt-4 mb-0" color="accent" text>
             <v-icon>mdi-chevron-left</v-icon>
             view case
-        </v-btn>
-        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Accept</v-card-title>
+        </v-btn> -->
+        <v-card-title class="my-4 display-1 secondary--text font-weight-medium">{{email.name}}</v-card-title>
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
         <v-card-text>
-        <div class="secondary--text font-weight-medium my-2">
-            When you click “Accept,” <span class="font-weight-bold"> {{dialogCase.firstname}} {{dialogCase.lastname}}</span> will receive the automated email you have previously created, tailored for this case.
-            You may use the space below to ask questions and/or provide information pertaining to this case.
+        <div class="secondary--text headline font-weight-medium my-4">
+            Subject:
         </div>
         <div class="my-4 secondary--text">
-            <v-icon color="primary" small>mdi-alert-circle</v-icon>
-            Haven’t set up your email templates? You may create them <router-link :to="{ name: 'email' }">here</router-link></div>
+            {{email.subject}}</div>
 
         <div class="custom-overline  info--text font-weight-medium  mb-1"> Message </div>
         <v-textarea
           class="mb-4"
           filled
-          no-resize
+          rows="14"
           background-color="#F0F5F6"
-          v-model="email"
+          v-model="email.content"
         ></v-textarea>
         </v-card-text>
-            <v-card-actions>
+            <!-- <v-card-actions>
             <v-spacer></v-spacer>
 
             <v-btn
@@ -36,7 +34,7 @@
             </v-btn>
 
             <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">Accept</v-btn>
-            </v-card-actions>
+            </v-card-actions> -->
     </v-card>
 
 </template>
@@ -44,20 +42,32 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'acceptCaseDialog',
+    name: 'emailTemplateEditDialog',
     data() {
         return{
-            email: `Dear ${this.dialogCase.firstname},
-Thank you for choosing me to review your Notice to Cease. Please allow 24 hours for review your documentation and the pleading. I will…`
+            email: {}
         }
     },
     props: {
-        dialogCase: Object,
-        dialogAction: Object,
+        emailId: Number,
+    },
+    mounted(){
+        this.getTemplate()
+    },
+    watch: {
+        emailId: function(){
+            this.getTemplate()
+        },
     },
     methods:{
-        sub(){
-           console.log('di', this.dialogAction)
+        getTemplate(){
+           this.$http.get('http://localhost:3333/emailTemplateById', {
+            params: {
+                emailId: this.emailId
+            }
+        })
+        .then(r => r.data)
+        .then(data => this.email = data)
         },
         submit(){
             axios

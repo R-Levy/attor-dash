@@ -23,9 +23,9 @@
     <!-- this is the dialog that will pop up if add filter button is pressed -->
     <v-dialog
       v-model="filterDialogOpen" value="''"
-      max-width="1000"
+      max-width="800"
     >
-      <filter-dialog @change:dialog="changeDialog"/>
+      <filter-dialog @update:filters="updateFilters" @change:dialog="changeDialog"/>
     </v-dialog>
 
     <!-- this is the dialog that will pop up if columns button is pressed -->
@@ -68,20 +68,21 @@ export default {
     data () {
       return {
         filters: [
-          {
-            filter1:'county',
-            filter2: 'essex',
-            },
-            {
-            filter1:'client',
-            filter2: 'jane doe',
-            },
         ]
       }
     },
     methods:{
       changeDialog(dialogName){
         this.$store.commit('setDialog', dialogName)
+      },
+      updateFilters(filterArray){
+        this.filters = filterArray
+        let filterObj = {}
+        for (const filter of filterArray) {
+          filterObj[filter.filter1]= filter.filter2
+        }
+        console.log(filterObj)
+        this.$emit('change:filters', filterObj)
       }
     },
     computed: {

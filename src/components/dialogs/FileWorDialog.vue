@@ -12,19 +12,15 @@
 
       <v-divider></v-divider>
 
-      <v-stepper-step :complete="e1 > 2" step="2" editable edit-icon="mdi-check">Accept</v-stepper-step>
-
-      <v-divider></v-divider>
-
-      <v-stepper-step step="3" editable edit-icon="mdi-check">File</v-stepper-step>
+      <v-stepper-step :complete="e1 > 2" step="2" editable>File</v-stepper-step>
     </v-stepper-header>
 
     <v-stepper-items>
       <v-stepper-content step="1">
           <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Review Adjournment Request</v-card-title>
         
-            <pdf-viewer />
-      <div class="d-flex justify-end">
+<pdf-viewer />
+    <div class="d-flex justify-end">
         <v-btn rounded color="accent" dark class="px-8" small depressed
           @click="e1 = 2"
         >
@@ -37,33 +33,25 @@
             >
                 cancel
             </v-btn>
-      </div>
+    </div>
       </v-stepper-content>
 
       <v-stepper-content step="2">
+          <v-card-title class="my-2 display-1 secondary--text font-weight-medium">File Adjournment Request</v-card-title>
+          <div class="my-4">
           <div class="secondary--text font-weight-medium my-2">
-            When you click “Accept,” <span class="font-weight-bold"> {{dialogCase.firstname}} {{dialogCase.lastname}}</span> will receive the automated email you have previously created, tailored for this case.
-            You may use the space below to ask questions and/or provide information pertaining to this case.
+            This may be information pertinent to filing.
         </div>
-        <div class="my-4 secondary--text">
-            <v-icon color="primary" small>mdi-alert-circle</v-icon>
-            Haven’t set up your email templates? You may create them <router-link :to="{ name: 'main' }">here</router-link></div>
-
-        <div class="custom-overline  info--text font-weight-medium  mb-1"> Message </div>
-        <v-textarea
-          class="mb-4"
-          filled
-          no-resize
-          background-color="#F0F5F6"
-          v-model="email"
-        ></v-textarea>
-
+            <div class="mt-4 secondary--text">
+            <v-icon color="primary" >mdi-alert-circle</v-icon>
+            Would you like to use the Easy Evictions mailing system?</div>
+            <v-radio-group class="my-0 mx-6" v-model="wor" :mandatory="false" hide-details row>
+              <v-radio label="Yes" value="yes" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+              <v-radio label="No" value="no" on-icon="mdi-checkbox-marked-circle-outline"></v-radio>
+            </v-radio-group>
+        </div>
         <div class="d-flex justify-end">
-        <v-btn rounded color="accent" dark class="px-8" small depressed
-          @click="e1 = 3"
-        >
-          Continue
-        </v-btn>
+        <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">File</v-btn>
         <v-btn
                 color="accent"
                 text
@@ -73,37 +61,10 @@
             </v-btn>
         </div>
 
-      </v-stepper-content>
-
-      <v-stepper-content step="3">
-        <div class="d-flex justify-end">
-        <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">File</v-btn>
-        </div>
-<!-- 
-        <v-btn
-          color="primary"
-          @click="e1 = 1"
-        >
-          Continue
-        </v-btn>
-
-        <v-btn text>Cancel</v-btn> -->
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>
-            <!-- <v-card-actions>
-            <v-spacer></v-spacer>
-
-            <v-btn
-                color="accent"
-                text
-                @click="()=>this.$emit('change:dialog', '')"
-            >
-                cancel
-            </v-btn>
-
-            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">File</v-btn>
-            </v-card-actions> -->
+          
     </v-card>
 
 </template>
@@ -112,7 +73,7 @@
 import axios from 'axios'
 import PdfViewer from '@/components/PdfViewer'
 export default {
-    name: 'fileSCDialog',
+    name: 'fileWorDialog',
     data() {
         return{
             e1: 1,
@@ -130,7 +91,7 @@ Thank you for choosing me to review your Notice to Cease. Please allow 24 hours 
     methods:{
         submit(){
             axios
-                .post(`http://localhost:3333/fileSC`,{
+                .post(`http://localhost:3333/fileWor`,{
                         caseId: this.dialogAction.CaseId,
                         caseActionId: this.dialogAction.CaseActionId
                         })

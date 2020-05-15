@@ -3,7 +3,7 @@
     <!-- <InfoBar :items="items"/> -->
     <QuickLinkBar />
     <table-template title="Case Overview" :filter-area-button="'column-filter'">
-        <template #data><CaseTable /></template>
+        <template #data="slotProps"><CaseTable :tableFilters="slotProps.tableFilters"/></template>
     </table-template>
 </div>
 </template>

@@ -4,16 +4,16 @@
             <v-icon>mdi-chevron-left</v-icon>
             view case
         </v-btn>
-        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Accept</v-card-title>
+        <v-card-title class="my-2 display-1 secondary--text font-weight-medium">Notify Client of Court Dismissal</v-card-title>
         <!-- <v-card-subtitle v-if="subtitle"><span class="font-weight-medium">Note:</span> {{subtitle}} </v-card-subtitle> -->
         <v-card-text>
         <div class="secondary--text font-weight-medium my-2">
-            When you click “Accept,” <span class="font-weight-bold"> {{dialogCase.firstname}} {{dialogCase.lastname}}</span> will receive the automated email you have previously created, tailored for this case.
+            When you click “Submit,” <span class="font-weight-bold"> {{dialogCase.firstname}} {{dialogCase.lastname}}</span> will receive the automated email you have previously created, tailored for this case.
             You may use the space below to ask questions and/or provide information pertaining to this case.
         </div>
         <div class="my-4 secondary--text">
             <v-icon color="primary" small>mdi-alert-circle</v-icon>
-            Haven’t set up your email templates? You may create them <router-link :to="{ name: 'email' }">here</router-link></div>
+            Haven’t set up your email templates? You may create them <router-link :to="{ name: 'main' }">here</router-link></div>
 
         <div class="custom-overline  info--text font-weight-medium  mb-1"> Message </div>
         <v-textarea
@@ -35,7 +35,7 @@
                 cancel
             </v-btn>
 
-            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">Accept</v-btn>
+            <v-btn rounded color="accent" dark class="px-8" small depressed @click="submit">Submit</v-btn>
             </v-card-actions>
     </v-card>
 
@@ -44,11 +44,11 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'acceptCaseDialog',
+    name: 'notifyClientofDismissalDialog',
     data() {
         return{
             email: `Dear ${this.dialogCase.firstname},
-Thank you for choosing me to review your Notice to Cease. Please allow 24 hours for review your documentation and the pleading. I will…`
+I am writing you today to inform you that the court has dismissed your case and my representation of you in connection with your case is now concluded.  I have completed my legal work on your case and I am closing your file.`
         }
     },
     props: {
@@ -61,7 +61,7 @@ Thank you for choosing me to review your Notice to Cease. Please allow 24 hours 
         },
         submit(){
             axios
-                .post(`http://localhost:3333/acceptCase`,{
+                .post(`http://localhost:3333/notifyClientofDismissal`,{
                         emailText: this.email,
                         caseId: this.dialogAction.CaseId,
                         caseActionId: this.dialogAction.CaseActionId

@@ -23,7 +23,7 @@
       <div>{{item.city}}, {{item.state}} {{item.zipcode}}</div>
     </template>
 
-    <template v-slot:item.service={item}>
+    <template v-slot:item.planDescription={item}>
       <div>{{item.planDescription}}</div>
     </template>
 
@@ -32,12 +32,13 @@
       <div class="accent--text">{{item.docketNo}}</div>
     </template>
 
-    <template v-slot:item.hearing={item}>
+    <template v-slot:item.hearingDate={item}>
       <div>{{fixDate(item.hearingDate)}}</div>
     </template>
 
     <template v-slot:item.status={item}>
       <div>{{item.status}}</div>
+      <div class="font-italic" v-if="item.subStatus"> {{item.subStatus}} </div>
       <div class="lighter-blue">{{fixDate(item.statusDate)}}</div>
     </template>
 
@@ -54,7 +55,7 @@
     
       <v-dialog
       v-model="dialogOpen" value="''"
-      max-width="500"
+      :max-width="maxWidth"
     >
       <component :is="dynamicDialog" @change:dialog="changeDialog" :dialogCase="dialogCase" :dialogAction="dialogAction"></component>
     </v-dialog>
@@ -71,6 +72,10 @@ import FileConsentDialog from '@/components/dialogs/FileConsentDialog'
 import EnterCourtResultsDialog from '@/components/dialogs/EnterCourtResultsDialog'
 import AskClientforWORDialog from '@/components/dialogs/AskClientforWORDialog'
 import FileAdjournmentDialog from '@/components/dialogs/FileAdjournmentDialog'
+import AdjournmentCourtResponseDialog from '@/components/dialogs/AdjournmentCourtResponseDialog'
+import RequestCourtDismissalDialog from '@/components/dialogs/RequestCourtDismissalDialog'
+import NotifyClientofDismissalDialog from '@/components/dialogs/NotifyClientofDismissalDialog'
+import FileWORDialog from '@/components/dialogs/FileWorDialog'
 
 export default {
     name: 'case-table',
@@ -84,7 +89,15 @@ export default {
       EnterCourtResultsDialog,
       AskClientforWORDialog,
       FileAdjournmentDialog,
+      AdjournmentCourtResponseDialog,
+      RequestCourtDismissalDialog,
+      NotifyClientofDismissalDialog,
+      FileWORDialog,
 
+
+    },
+    props: {
+      tableFilters: Object
     },
     data () {
       return {
@@ -95,14 +108,24 @@ export default {
             value: 'name',
             class: 'header-text white--text font-weight-regular',
             align: 'left',
-            width: '10%'
+            width: '10%',
+            // filter: value => {
+            //   console.log(value)
+            //   if (!this.tableFilters.nt) return true
+            //   return value
+            //   //return value.toUpperCase().includes('E')
+            // }
           },
           {
             text: 'Service Requested',
-            value: 'service',
+            value: 'planDescription',
             class: 'header-text white--text font-weight-regular',
             align: 'left',
-            width: '5%'
+            width: '5%',
+            filter: value => {
+              if (!this.tableFilters.Service) return true
+              return value.toUpperCase().includes(this.tableFilters.Service.toUpperCase())
+            }
           },
           {
             text: 'Address',
@@ -110,7 +133,7 @@ export default {
             class: 'header-text white--text font-weight-regular',
             align: 'left',
             sortable: false,
-            width:'20%'
+            width:'20%',
           },
           {
             text: 'Parties',
@@ -125,14 +148,22 @@ export default {
             value: 'county',
             class: 'header-text white--text font-weight-regular',
             align: 'left',
-            width: '4%'
+            width: '4%',
+            filter: value => {
+              if (!this.tableFilters.County) return true
+              return value.toUpperCase().includes(this.tableFilters.County.toUpperCase())
+            }
           },
           {
             text: 'Hearing',
-            value: 'hearing',
+            value: 'hearingDate',
             class: 'header-text white--text font-weight-regular',
             align: 'left',
-            width: '5%'
+            width: '5%',
+            filter: value => {
+              if (!this.tableFilters.Hearing) return true
+              return value.includes(this.tableFilters.Hearing)
+            }
           },
           {
             text: 'Status',
@@ -141,6 +172,10 @@ export default {
             align: 'left',
             width: '20%',
             sortable: false,
+            filter: value => {
+              if (!this.tableFilters.Status) return true
+              return value.toUpperCase().includes(this.tableFilters.Status.toUpperCase())
+            }
           },
           {
             text: 'Action',
@@ -187,6 +222,12 @@ export default {
    dynamicDialog(){
      return this.dialogName
    },
+   maxWidth(){
+     if (this.dialogName === 'fileSCDialog'){
+       return 800
+     }
+     return 500
+   }
    
   },
   methods: {

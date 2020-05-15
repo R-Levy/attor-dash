@@ -21,6 +21,7 @@
 </template>
 
 <script>
+//import Vue from 'vue';
 import Navigation from './components/Navigation';
 import Toolbar from './components/Toolbar';
 //import Main from './components/pages/Main'

@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from  'vue-router'
 import Main from '@/components/views/Main.vue'
 import Profile from '@/components/views/Profile.vue'
+import Email from '@/components/views/Email.vue'
+import Messages from '@/components/views/Messages.vue'
 import Login from '@/components/views/Login.vue'
 import Register from '@/components/views/Register.vue'
 import DocumentReview from '@/components/views/DocumentReview.vue'
@@ -44,6 +46,16 @@ const routes = [
     path: "/tasks",
     name: "attorney-tasks",
     component: AttorneyTasks
+  },
+  {
+    path: "/email",
+    name: "email",
+    component: Email
+  },
+  {
+    path: "/messages",
+    name: "messages",
+    component: Messages
   },
   {
     path: "/document-review",

@@ -8,10 +8,10 @@
                 <client-info-card :clientId="currentCase.clientId"/>
             </v-col>
             <v-col cols="8">
-                <case-overview-card />
+                <case-overview-card :caseId="currentCase.id"/>
             </v-col>
             </v-row>
-            <PageNavBar />
+            <PageNavBar :caseId="currentCase.id"/>
             <router-view></router-view>
         </v-col>
         <v-col cols="2">
